@@ -3,6 +3,7 @@ import Landing from "./Landing";
 import Info from "./Info";
 import Operation from "./Operation";
 import FAQ from "./FAQ";
+import Signup from "./Signup";
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
       <Info />
       <Operation />
       <FAQ />
+      <Signup />
     </div>
   );
 }
