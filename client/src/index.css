@@ -16,6 +16,20 @@
   margin: 100px 0 100px 0;
 }
 
+@media screen and (min-width: 992px) {
+  .w-sm-75 {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .w-form-100 {
+    width: 100%;
+  } 
+}
+
+
+
 .bg-img {
   background-image: url("/src/assets/landing.png");
   background-size: cover;
