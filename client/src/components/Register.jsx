@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   return (
     <form>
       <fieldset className="d-flex flex-column">
@@ -39,7 +42,16 @@ const RegisterForm = () => {
           />
         </div>
         <div className="d-grid mt-3">
-          <button className="btn btn-primary fs-4">Next</button>
+          <button
+            type="button"
+            className="btn btn-primary fs-4"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/profile-form");
+            }}
+          >
+            Next
+          </button>
         </div>
       </fieldset>
     </form>
@@ -51,7 +63,10 @@ function Register() {
     <div className="container d-flex flex-column flex-lg-row justify-content-center align-items-center py-2 my-2">
       <div className="vw-50 h-50">
         <h1 className="display-1 text-light">Drive with DMS</h1>
-        <p className="text-light text-opacity-75 fs-2">Earn good money <em className="text-light fw-semibold">with your vehicle</em></p>
+        <p className="text-light text-opacity-75 fs-2">
+          Earn good money{" "}
+          <em className="text-light fw-semibold">with your vehicle</em>
+        </p>
       </div>
       <div className="p-4 shadow-lg bg-light rounded-5">
         <RegisterForm />
