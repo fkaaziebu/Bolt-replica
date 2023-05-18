@@ -13,14 +13,15 @@ const LoginForm = () => {
           className="form-control fs-5 p-3 bg-light-50 border border-0"
         />
       </div>
-      <div className="mb-4 mt-4">
-        <label for="contact" className="form-label fw-bold">
-          Phone Number
+      <div className="mb-3">
+        <label for="phone" className="form-label fw-bold">
+          Phone number
         </label>
         <input
           type="text"
-          id="lphoneNumber"
-          className="form-control fs-5 p-3 bg-light-50 border border-0"
+          id="phone"
+          className="form-control fs-5"
+          placeholder="0550815604"
         />
       </div>
 
@@ -40,12 +41,8 @@ function Form() {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
       <div className="w-100 mt-4">
-        <h2 className="text-sm-center fs-3">
-          Personsal information and vehicle details
-        </h2>
         <p className="text-sm-center text-muted">
-          Only your first name and vehicle details are visible to clients during
-          the booking
+          LOG IN
         </p>
       </div>
       <div className="p-0 w-form-100 w-sm-75 mb-5">

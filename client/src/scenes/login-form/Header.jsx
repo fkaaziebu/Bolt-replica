@@ -7,10 +7,10 @@ function Header() {
     <div className="container-sm d-flex justify-content-center">
       <a
         className="link-dark text-decoration-none fs-1"
-        href="#home"
+        href="#login"
         onClick={(e) => {
           e.preventDefault();
-          navigate("/");
+          navigate("/login-form");
         }}
       >
         DMS
