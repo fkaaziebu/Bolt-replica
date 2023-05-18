@@ -13,20 +13,17 @@ const RegisterForm = () => {
 
   const submitRegisterInfo = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-
     try {
-      await axios.post("https://dms-hx2f.onrender.com/api/1.0/drivers", {
-        email: formData.get("email") ?? null,
-        contact: formData.get("contact") ?? null,
-        city: formData.get("city") ?? null
+      await axios.post("http://localhost:7000/api/1.0/drivers", {
+        email,
+        contact,
+        city,
       });
       navigate("/profile-form");
     } catch (err) {
-      setEmailError(err.response.data.validationErrors.email);
-      setContactError(err.response.data.validationErrors.contact);
-      setCityError(err.response.data.validationErrors.city);
+      setEmailError(err?.response?.data?.validationErrors?.email);
+      setContactError(err?.response?.data?.validationErrors?.contact);
+      setCityError(err?.response.data?.validationErrors?.city);
     }
   };
 
