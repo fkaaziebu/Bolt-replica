@@ -1,20 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
   return (
     <div className="container-sm d-flex justify-content-center">
-      <a
+      <Link
         className="link-dark text-decoration-none fs-1"
-        href="#home"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/");
-        }}
+        to="/"
       >
         DMS
-      </a>
+      </Link>
     </div>
   );
 }

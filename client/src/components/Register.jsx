@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [city, setCity] = useState("");
+
+  const submitRegisterInfo = async (event) => {
+    event.preventDefault();
+
+    const res = await axios.post("http://localhost:7000/api/1.0/drivers", {
+      email,
+      contact,
+      city,
+    });
+
+    if (res) {
+      navigate("/profile-form")
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={submitRegisterInfo}>
       <fieldset className="d-flex flex-column">
         <legend className="fs-3 fw-bold mb-4">Signup as a driver below</legend>
         <div className="mb-3">
@@ -43,12 +61,8 @@ const RegisterForm = () => {
         </div>
         <div className="d-grid mt-3">
           <button
-            type="button"
+            type="submit"
             className="btn btn-primary fs-4"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/profile-form");
-            }}
           >
             Next
           </button>
