@@ -68,39 +68,6 @@ describe("Driver Registration", () => {
     expect(body.validationErrors).not.toBeUndefined();
   });
 
-  it("returns email cannot be null when email is null", async () => {
-    const response = await postDriver({
-      email: null,
-      contact: "0550815604",
-      city: "Kumasi",
-    });
-
-    const body = response.body;
-    expect(body.validationErrors.email).toBe("Email cannot be null");
-  });
-
-  it("returns contact cannot be null when contact is null", async () => {
-    const response = await postDriver({
-      email: "user1@mail.com",
-      contact: null,
-      city: "Kumasi",
-    });
-
-    const body = response.body;
-    expect(body.validationErrors.contact).toBe("Contact cannot be null");
-  });
-
-  it("returns city cannot be null when city is null", async () => {
-    const response = await postDriver({
-      email: "user1@mail.com",
-      contact: "0550815604",
-      city: null,
-    });
-
-    const body = response.body;
-    expect(body.validationErrors.city).toBe("City cannot be null");
-  });
-
   it("returns errors for both when email and contact is null", async () => {
     const response = await postDriver({
       email: null,
@@ -109,7 +76,7 @@ describe("Driver Registration", () => {
     });
 
     const body = response.body;
-    expect(Object.keys(body.validationErrors)).toEqual(["email", "contact"])
+    expect(Object.keys(body.validationErrors)).toEqual(["email", "contact"]);
   });
 
   it("returns errors for email, contact and city when null", async () => {
@@ -120,6 +87,31 @@ describe("Driver Registration", () => {
     });
 
     const body = response.body;
-    expect(Object.keys(body.validationErrors)).toEqual(["email", "contact", "city"])
+    expect(Object.keys(body.validationErrors)).toEqual([
+      "email",
+      "contact",
+      "city",
+    ]);
   });
+
+  it.each`
+    field        | expectedMessage
+    ${"email"}   | ${"Email cannot be null"}
+    ${"contact"} | ${"Contact cannot be null"}
+    ${"city"}    | ${"City cannot be null"}
+  `(
+    "returns $expectedMessage when $field is null",
+    async ({ field, expectedMessage }) => {
+      const driver = {
+        email: "user1@mail.com",
+        contact: "0550815604",
+        city: "Kumasi",
+      };
+
+      driver[field] = null;
+      const response = await postDriver(driver);
+      const body = response.body;
+      expect(body.validationErrors[field]).toBe(expectedMessage)
+    }
+  );
 });
