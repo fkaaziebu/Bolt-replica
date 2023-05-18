@@ -105,7 +105,7 @@ describe("Driver Registration", () => {
       const driver = {
         email: "user1@mail.com",
         contact: "0550815604",
-        city: "Kumasi",
+        city: "Kumasi"
       };
 
       driver[field] = null;
