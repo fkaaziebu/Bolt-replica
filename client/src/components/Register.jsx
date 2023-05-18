@@ -17,7 +17,7 @@ const RegisterForm = () => {
     const formData = new FormData(event.target);
 
     try {
-      await axios.post("http://localhost:7000/api/1.0/drivers", {
+      await axios.post("https://dms-hx2f.onrender.com/api/1.0/drivers", {
         email: formData.get("email") ?? null,
         contact: formData.get("contact") ?? null,
         city: formData.get("city") ?? null,
