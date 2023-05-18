@@ -1,4 +1,7 @@
 const Sequelize = require("sequelize");
+const config = require("config");
+
+const dbConfig = config.get("database");
 
 /* 
 The sequelize instance takes some few arguments for the
@@ -9,10 +12,15 @@ the database config:
 3. Password for database connection
 4. Object for providing optional arguments
 */
-const sequelize = new Sequelize("dms", "dms-swe", "dms-pass", {
-  dialect: "sqlite",
-  storage: "./database.sqlite",
-  logging: false,
-});
+const sequelize = new Sequelize(
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
+  {
+    dialect: dbConfig.dialect,
+    storage: dbConfig.storage,
+    logging: dbConfig.logging,
+  }
+);
 
 module.exports = sequelize;

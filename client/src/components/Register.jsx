@@ -4,21 +4,19 @@ import axios from "axios";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [city, setCity] = useState("");
 
   const submitRegisterInfo = async (event) => {
     event.preventDefault();
 
-    const res = await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
-      email,
-      contact,
-      city,
+    const formData = new FormData(event.target);
+    const res = await axios.post("http://localhost:7000/api/1.0/drivers", {
+      email: formData.get("email") ?? null,
+      contact: formData.get("contact") ?? null,
+      city: formData.get("city") ?? null,
     });
 
     if (res) {
-      navigate("/profile-form")
+      navigate("/profile-form");
     }
   };
 
@@ -32,6 +30,7 @@ const RegisterForm = () => {
           </label>
           <input
             type="email"
+            name="email"
             id="email"
             className="form-control fs-3"
             placeholder="john.doe@gmail.com"
@@ -43,6 +42,7 @@ const RegisterForm = () => {
           </label>
           <input
             type="text"
+            name="contact"
             id="phone"
             className="form-control fs-3"
             placeholder="0550815604"
@@ -54,16 +54,14 @@ const RegisterForm = () => {
           </label>
           <input
             type="text"
+            name="city"
             id="city"
             className="form-control fs-3"
             placeholder="Kumasi"
           />
         </div>
         <div className="d-grid mt-3">
-          <button
-            type="submit"
-            className="btn btn-primary fs-4"
-          >
+          <button type="submit" className="btn btn-primary fs-4">
             Next
           </button>
         </div>
