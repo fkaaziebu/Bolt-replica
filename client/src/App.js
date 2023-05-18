@@ -1,5 +1,6 @@
 import Home from "./scenes/home";
 import ProfileForm from "./scenes/profile-form"
+import LoginForm from "./scenes/login-form"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile-form" element={<ProfileForm />} />
+          <Route path="/login-form" element={<LoginForm />} />
         </Routes>
       </BrowserRouter>
     </div>
