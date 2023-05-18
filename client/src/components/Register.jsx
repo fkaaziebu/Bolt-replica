@@ -20,7 +20,7 @@ const RegisterForm = () => {
       await axios.post("https://dms-hx2f.onrender.com/api/1.0/drivers", {
         email: formData.get("email") ?? null,
         contact: formData.get("contact") ?? null,
-        city: formData.get("city") ?? null,
+        city: formData.get("city") ?? null
       });
       navigate("/profile-form");
     } catch (err) {
