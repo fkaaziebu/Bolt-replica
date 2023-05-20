@@ -1,8 +1,12 @@
 import React from "react";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setStep }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStep(2);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="mb-4 mt-4">
         <label for="firstName" className="form-label fw-bold">
           First name
@@ -93,7 +97,10 @@ const RegisterForm = () => {
         />
       </div>
       <div className="d-flex justify-content-center mt-3">
-        <button type="button" className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill">
+        <button
+          type="submit"
+          className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
+        >
           Next
         </button>
       </div>
@@ -101,7 +108,7 @@ const RegisterForm = () => {
   );
 };
 
-function Form() {
+function ProfileForm1({ setStep }) {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
       <div className="w-100 mt-4">
@@ -114,10 +121,10 @@ function Form() {
         </p>
       </div>
       <div className="p-0 w-form-100 w-sm-75 mb-5">
-        <RegisterForm />
+        <RegisterForm setStep={setStep} />
       </div>
     </div>
   );
 }
 
-export default Form;
+export default ProfileForm1;

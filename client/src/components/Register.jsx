@@ -14,7 +14,7 @@ const RegisterForm = () => {
   const submitRegisterInfo = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
+      await axios.post("http://localhost:7000/api/1.0/drivers", {
         email,
         contact,
         city,
