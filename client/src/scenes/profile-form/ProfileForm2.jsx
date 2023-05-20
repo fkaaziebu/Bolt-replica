@@ -55,7 +55,7 @@ function ProfileForm1({ setStep }) {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
       <div className="w-100 mt-4">
-        <h2 className="text-sm-center fs-3">Step 2</h2>
+        <h2 className="text-center fs-3">Step 2</h2>
         <p className="text-sm-center text-muted">
           Your national ID and license details will be kept private.
         </p>
