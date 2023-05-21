@@ -1,23 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [contact, setContact] = useState("");
+  const [contactError, setContactError] = useState("");
+  const [city, setCity] = useState("");
+  const [cityError, setCityError] = useState("");
+
+  const submitRegisterInfo = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
+        email,
+        contact,
+        city,
+      });
+      navigate("/profile-form");
+    } catch (err) {
+      setEmailError(err?.response?.data?.validationErrors?.email);
+      setContactError(err?.response?.data?.validationErrors?.contact);
+      setCityError(err?.response.data?.validationErrors?.city);
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={submitRegisterInfo}>
       <fieldset className="d-flex flex-column">
         <legend className="fs-3 fw-bold mb-4">Signup as a driver below</legend>
-        <div className="mb-3">
+        <div className="mb-1">
           <label for="email" className="form-label fs-5">
             Email
           </label>
           <input
             type="email"
+            name="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
             id="email"
             className="form-control fs-3"
             placeholder="john.doe@gmail.com"
           />
+          <p className="text-danger p-1">{emailError}</p>
         </div>
         <div className="mb-3">
           <label for="phone" className="form-label fs-5">
@@ -25,10 +55,17 @@ const RegisterForm = () => {
           </label>
           <input
             type="text"
+            name="contact"
+            value={contact}
+            onChange={(e) => {
+              setContact(e.target.value);
+              setContactError("");
+            }}
             id="phone"
             className="form-control fs-3"
             placeholder="0550815604"
           />
+          <p className="text-danger p-1">{contactError}</p>
         </div>
         <div className="mb-3">
           <label for="city" className="form-label fs-5">
@@ -36,20 +73,20 @@ const RegisterForm = () => {
           </label>
           <input
             type="text"
+            name="city"
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+              setCityError("");
+            }}
             id="city"
             className="form-control fs-3"
             placeholder="Kumasi"
           />
+          <p className="text-danger p-1">{cityError}</p>
         </div>
         <div className="d-grid mt-3">
-          <button
-            type="button"
-            className="btn btn-primary fs-4"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/profile-form");
-            }}
-          >
+          <button type="submit" className="btn btn-primary fs-4">
             Next
           </button>
         </div>

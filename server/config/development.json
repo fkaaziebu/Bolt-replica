@@ -1,0 +1,10 @@
+{
+    "database": {
+        "database": "dms",
+        "username": "dms-swe",
+        "password": "dms-pass",
+        "dialect": "sqlite",
+        "storage": "./database.sqlite",
+        "logging": false
+    }
+}

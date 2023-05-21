@@ -1,25 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
   return (
     <nav className="navbar">
       <div className="container-fluid py-2 m-2 mx-lg-5">
-        <a className="nav-link link-light fs-1" href="#home">
+        <Link className="nav-link link-light fs-1" to="#home">
           DMS
-        </a>
-        <a className="nav-link link-light fs-1" href="#home">
-          <div
-            className=" fs-4"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("login-form");
-            }}
-          >
-            LOGIN
-          </div>
-        </a>
+        </Link>
+        <Link className="nav-link link-light fs-1" to="/login-form">
+          LOGIN
+        </Link>
       </div>
     </nav>
   );

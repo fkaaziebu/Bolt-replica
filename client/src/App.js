@@ -2,6 +2,10 @@ import Home from "./scenes/home";
 import ProfileForm from "./scenes/profile-form"
 import LoginForm from "./scenes/login-form"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProfileForm1 from "./scenes/profile-form/ProfileForm1"
+import ProfileForm2 from "./scenes/profile-form/ProfileForm2"
+import ProfileForm3 from "./scenes/profile-form/ProfileForm3"
+
 
 function App() {
   return (

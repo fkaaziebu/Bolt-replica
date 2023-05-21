@@ -20,6 +20,12 @@
   background-color: #F5F5F5;
 }
 
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 @media screen and (min-width: 992px) {
   .w-sm-75 {
     width: 50%;
