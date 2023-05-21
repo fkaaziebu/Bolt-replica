@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 const LoginForm = () => {
-  const [loginType, setLoginType] = useState(null);
+  const [loginType, setLoginType] = useState('email');
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -34,7 +34,7 @@ const LoginForm = () => {
   };
   return (
     <form>
-      <div className="d-flex justify-content-center mt-3">
+      <div className="d-flex justify-content-center mt-3 bg-primary">
         <button
           type="button"
           onClick={() => handleLoginType("email")}
@@ -50,6 +50,9 @@ const LoginForm = () => {
           Phone Number
         </button>
       </div>
+      <div>
+
+        </div>
       {loginType === "email" && (
         <div className="mb-4 mt-4">
           <label for="EmailAddress" className="form-label fw-bold">
@@ -75,13 +78,8 @@ const LoginForm = () => {
           />
         </div>
       )}
-      <div className="d-flex justify-content-center mt-3">
-        <button
-          type="button"
-          className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
-        >
+      <div className="d-flex justify-content-center mt-3 fs-4 mt-5 py-3 px-5 rounded-pill">
           Continue
-        </button>
       </div>
     </form>
   );
