@@ -1,87 +1,68 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import Login from "./Email";
+import {
+  MDBContainer,
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+  MDBCheckbox,
+} from "mdb-react-ui-kit";
 
 const LoginForm = () => {
-  const [loginType, setLoginType] = useState('email');
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [justifyActive, setJustifyActive] = useState('tab1');;
 
-  const handleLoginType = (type) => {
-    setLoginType(type);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform validation and API requests here
-    if (loginType === "email") {
-      console.log("Email:", email);
-      // Send OTP to the email and navigate to OTP verification page
-    } else if (loginType === "phone") {
-      console.log("Phone Number:", phoneNumber);
-      // Send OTP to the phone number and navigate to OTP verification page
+  const handleJustifyClick = (value) => {
+    if (value === justifyActive) {
+      return;
     }
-    // Reset the form
-    setEmail("");
-    setPhoneNumber("");
+
+    setJustifyActive(value);
   };
   return (
-    <form>
-      <div className="d-flex justify-content-center mt-3 bg-primary">
-        <button
-          type="button"
-          onClick={() => handleLoginType("email")}
-          className={loginType === "email" ? "active" : ""}
-        >
-          Email / Username
-        </button>
-        <button
-          type="button"
-          onClick={() => handleLoginType("phone")}
-          className={loginType === "phone" ? "active" : ""}
-        >
-          Phone Number
-        </button>
-      </div>
-      <div>
-
-        </div>
-      {loginType === "email" && (
-        <div className="mb-4 mt-4">
-          <label for="EmailAddress" className="form-label fw-bold">
+    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+      <MDBTabs
+        pills
+        justify
+        className="mb-3 d-flex flex-row justify-content-between"
+      >
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleJustifyClick("tab1")}
+            active={justifyActive === "tab1"}
+          >
             Email Address
-          </label>
-          <input
-            type="emailAddress"
-            id="emailAddress"
-            className="form-control fs-5 p-3 bg-light-50 border border-0"
-          />
-        </div>
-      )}
-      {loginType === "phone" && (
-        <div className="mb-3">
-          <label for="phone" className="form-label fw-bold">
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleJustifyClick("tab2")}
+            active={justifyActive === "tab2"}
+          >
             Phone number
-          </label>
-          <input
-            type="text"
-            id="phone"
-            className="form-control fs-5"
-            placeholder="0550815604"
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
+      <MDBTabsContent>
+        <MDBTabsPane show={justifyActive === "tab1"}>
+          <Login />
+        </MDBTabsPane>
+        <MDBTabsPane show={justifyActive === "tab2"}>
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Phone"
+            id="form1"
+            type="contact"
           />
-        </div>
-      )}
-      <div className="d-flex justify-content-center mt-3 fs-4 mt-5 py-3 px-5 rounded-pill">
-          Continue
-      </div>
-    </form>
+
+          <MDBBtn className="mb-4 w-100">Continue</MDBBtn>
+        </MDBTabsPane>
+      </MDBTabsContent>
+    </MDBContainer>
   );
 };
 
