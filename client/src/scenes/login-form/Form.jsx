@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Login from "./Email";
+import Password from "./Password"
 import {
   MDBContainer,
   MDBTabs,
@@ -24,11 +25,11 @@ const LoginForm = () => {
     setJustifyActive(value);
   };
   return (
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+    <MDBContainer className="p-3 mt-1 my-5 d-flex flex-column w-50">
       <MDBTabs
         pills
         justify
-        className="mb-3 d-flex flex-row justify-content-between"
+        className="mb-3 d-flex flex-row justify-content-between custome-tabs"
       >
         <MDBTabsItem>
           <MDBTabsLink
@@ -59,7 +60,7 @@ const LoginForm = () => {
             type="contact"
           />
 
-          <MDBBtn className="mb-4 w-100">Continue</MDBBtn>
+          <MDBBtn className="mb-4 w-100" onClick={<Password />}>Continue</MDBBtn>
         </MDBTabsPane>
       </MDBTabsContent>
     </MDBContainer>

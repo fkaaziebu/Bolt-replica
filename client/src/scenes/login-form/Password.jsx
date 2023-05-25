@@ -7,7 +7,7 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-const Login = () => {
+const Password = () => {
   const [justifyActive, setJustifyActive] = useState("tab1");
   return (
     <MDBTabsPane show={justifyActive === "tab1"}>
@@ -35,4 +35,4 @@ const Login = () => {
     </MDBTabsPane>
   );
 };
-export default Login;
+export default Password;
