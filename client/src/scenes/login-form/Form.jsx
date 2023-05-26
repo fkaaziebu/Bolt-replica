@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "./Email";
-import Password from "./Password"
+import Password from "./Password";
 import {
   MDBContainer,
   MDBTabs,
@@ -15,7 +15,7 @@ import {
 } from "mdb-react-ui-kit";
 
 const LoginForm = () => {
-  const [justifyActive, setJustifyActive] = useState('tab1');;
+  const [justifyActive, setJustifyActive] = useState("tab1");
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -26,6 +26,9 @@ const LoginForm = () => {
   };
   return (
     <MDBContainer className="p-3 mt-1 my-5 d-flex flex-column w-50">
+      <div className="w-100 mt-4">
+        <p className="text-sm-center text-muted">LOG IN</p>
+      </div>
       <MDBTabs
         pills
         justify
@@ -59,8 +62,22 @@ const LoginForm = () => {
             id="form1"
             type="contact"
           />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Password"
+            id="form1"
+            type="password"
+          />
 
-          <MDBBtn className="mb-4 w-100" onClick={<Password />}>Continue</MDBBtn>
+          <MDBBtn className="mb-4 w-100" onClick={<Password />}>
+            Continue
+          </MDBBtn>
+          <div className="d-flex justify-content-center mx-4 mb-4">
+            <a href="!#">Forgot password?</a>
+          </div>
+          <p className="text-center">
+            Not a DMS Driver? <a href="#!">Register</a>
+          </p>
         </MDBTabsPane>
       </MDBTabsContent>
     </MDBContainer>
@@ -70,9 +87,6 @@ const LoginForm = () => {
 function Form() {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
-      <div className="w-100 mt-4">
-        <p className="text-sm-center text-muted">LOG IN</p>
-      </div>
       <div className="p-0 w-form-100 w-sm-75 mb-5">
         <LoginForm />
       </div>
