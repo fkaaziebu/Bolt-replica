@@ -13,6 +13,7 @@ import {
   MDBInput,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom"; // Import the Link component from React Router
 
 const LoginForm = () => {
   const [justifyActive, setJustifyActive] = useState("tab1");
@@ -76,7 +77,7 @@ const LoginForm = () => {
             <a href="!#">Forgot password?</a>
           </div>
           <p className="text-center">
-            Not a DMS Driver? <a href="#!">Register</a>
+          Not a DMS Driver? <Link to="/home">Register</Link>
           </p>
         </MDBTabsPane>
       </MDBTabsContent>
