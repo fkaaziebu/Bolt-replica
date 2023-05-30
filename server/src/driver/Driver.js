@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
+const Profile = require("./Profile");
 
 const Model = Sequelize.Model;
 
@@ -24,5 +25,7 @@ Driver.init(
   },
   { sequelize, modelName: "driver" }
 );
+
+Driver.hasOne(Profile, { onDelete: "cascade", foreignKey: "driverId"})
 
 module.exports = Driver;
