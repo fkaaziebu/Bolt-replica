@@ -1,53 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import Login from "./Email";
+import Password from "./Password";
+import {
+  MDBContainer,
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+  MDBCheckbox,
+} from "mdb-react-ui-kit";
+import { Link } from "react-router-dom"; // Import the Link component from React Router
 
 const LoginForm = () => {
-  return (
-    <form>
-      <div className="mb-4 mt-4">
-        <label for="EmailAddress" className="form-label fw-bold">
-          Email Address
-        </label>
-        <input
-          type="emailAddress"
-          id="emailAddress"
-          className="form-control fs-5 p-3 bg-light-50 border border-0"
-        />
-      </div>
-      <div className="mb-4 mt-4">
-        <label for="contact" className="form-label fw-bold">
-          Phone Number
-        </label>
-        <input
-          type="text"
-          id="lphoneNumber"
-          className="form-control fs-5 p-3 bg-light-50 border border-0"
-        />
-      </div>
+  const [justifyActive, setJustifyActive] = useState("tab1");
 
-      <div className="d-flex justify-content-center mt-3">
-        <button
-          type="button"
-          className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
-        >
-          Next
-        </button>
+  const handleJustifyClick = (value) => {
+    if (value === justifyActive) {
+      return;
+    }
+
+    setJustifyActive(value);
+  };
+  return (
+    <MDBContainer className="p-3 mt-1 my-5 d-flex flex-column w-50">
+      <div className="w-100 mt-4">
+        <p className="text-sm-center text-muted">LOG IN</p>
       </div>
-    </form>
+      <MDBTabs
+        pills
+        justify
+        className="mb-3 d-flex flex-row justify-content-between custome-tabs"
+      >
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleJustifyClick("tab1")}
+            active={justifyActive === "tab1"}
+          >
+            Email Address
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleJustifyClick("tab2")}
+            active={justifyActive === "tab2"}
+          >
+            Phone number
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
+      <MDBTabsContent>
+        <MDBTabsPane show={justifyActive === "tab1"}>
+          <Login />
+        </MDBTabsPane>
+        <MDBTabsPane show={justifyActive === "tab2"}>
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Phone"
+            id="form1"
+            type="contact"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Password"
+            id="form1"
+            type="password"
+          />
+
+          <MDBBtn className="mb-4 w-100" onClick={<Password />}>
+            Continue
+          </MDBBtn>
+          <div className="d-flex justify-content-center mx-4 mb-4">
+            <a href="!#">Forgot password?</a>
+          </div>
+          <p className="text-center">
+          Not a DMS Driver? <Link to="/home">Register</Link>
+          </p>
+        </MDBTabsPane>
+      </MDBTabsContent>
+    </MDBContainer>
   );
 };
 
 function Form() {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
-      <div className="w-100 mt-4">
-        <h2 className="text-sm-center fs-3">
-          Personsal information and vehicle details
-        </h2>
-        <p className="text-sm-center text-muted">
-          Only your first name and vehicle details are visible to clients during
-          the booking
-        </p>
-      </div>
       <div className="p-0 w-form-100 w-sm-75 mb-5">
         <LoginForm />
       </div>
@@ -56,3 +96,76 @@ function Form() {
 }
 
 export default Form;
+// import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+// function LoginForm() {
+//   const [loginType, setLoginType] = useState(null);
+//   const [email, setEmail] = useState('');
+//   const [phoneNumber, setPhoneNumber] = useState('');
+
+//   const handleLoginType = (type) => {
+//     setLoginType(type);
+//   };
+
+//   const handleEmailChange = (event) => {
+//     setEmail(event.target.value);
+//   };
+
+//   const handlePhoneNumberChange = (event) => {
+//     setPhoneNumber(event.target.value);
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     // Perform validation and API requests here
+//     if (loginType === 'email') {
+//       console.log('Email:', email);
+//       // Send OTP to the email and navigate to OTP verification page
+
+//     } else if (loginType === 'phone') {
+//       console.log('Phone Number:', phoneNumber);
+//       // Send OTP to the phone number and navigate to OTP verification page
+
+//     }
+//     // Reset the form
+//     setEmail('');
+//     setPhoneNumber('');
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <h2>Login</h2>
+//       <div>
+//         <button type="button" onClick={() => handleLoginType('email')}>
+//           Email
+//         </button>
+//         <button type="button" onClick={() => handleLoginType('phone')}>
+//           Phone Number
+//         </button>
+//       </div>
+
+//       {loginType === 'email' && (
+//         <div>
+//           <label>
+//             Email:
+//             <input type="email" value={email} onChange={handleEmailChange} />
+//           </label>
+//         </div>
+//       )}
+
+//       {loginType === 'phone' && (
+//         <div>
+//           <label>
+//             Phone Number:
+//             <input type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
+//           </label>
+//         </div>
+//       )}
+
+//       <button type="submit">Submit</button>
+//     </form>
+//   );
+// }
+
+// export default LoginForm;
