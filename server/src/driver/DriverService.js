@@ -1,5 +1,6 @@
 const Driver = require("./Driver");
 const Profile = require("./Profile");
+const FileService = require("../file/FileService");
 
 const save = async (body) => {
   const { email, contact, city } = body;
@@ -35,11 +36,19 @@ const save = async (body) => {
       carColor,
       nationalId,
       driverLicense,
-      profilePhoto,
-      licenseFront,
-      proofOfInsurance,
-      roadworthinessSticker,
-      ghanaCard,
+      profilePhoto: !profilePhoto
+        ? null
+        : await FileService.saveImage(profilePhoto),
+      licenseFront: !licenseFront
+        ? null
+        : await FileService.saveImage(licenseFront),
+      proofOfInsurance: !proofOfInsurance
+        ? null
+        : await FileService.saveImage(proofOfInsurance),
+      roadworthinessSticker: !roadworthinessSticker
+        ? null
+        : await FileService.saveImage(roadworthinessSticker),
+      ghanaCard: !ghanaCard ? null : await FileService.saveImage(ghanaCard),
     });
   }
 };

@@ -1,9 +1,9 @@
 const express = require("express");
-const Driver = require("./Driver");
 const DriverService = require("./DriverService");
 const { check, validationResult } = require("express-validator");
 const ValidationException = require("../error/ValidationException");
 const msg = require("../messages");
+const FileService = require("../file/FileService");
 
 const router = express.Router();
 
@@ -25,6 +25,19 @@ router.post(
     }),
   check("contact").notEmpty().withMessage("Contact cannot be null"),
   check("city").notEmpty().withMessage("City cannot be null"),
+  check(["profilePhoto", "licenseFront", "proofOfInsurance", "roadworthinessSticker", "ghanaCard"]).custom(async (imageAsBase64String) => {
+    if (!imageAsBase64String) {
+      return true
+    }
+    const buffer = Buffer.from(imageAsBase64String, "base64");
+
+    const supportedType = await FileService.isSupportedFileType(buffer);
+    if (!supportedType) {
+      throw new Error(msg.unsupported_image_file);
+    }
+
+    return true
+  }),
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

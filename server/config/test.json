@@ -6,5 +6,7 @@
     "dialect": "sqlite",
     "storage": ":memory:",
     "logging": false
-  }
+  },
+  "uploadDir": "uploads-test",
+  "profileDir": "profile"
 }
