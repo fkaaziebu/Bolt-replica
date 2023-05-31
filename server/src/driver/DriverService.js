@@ -20,25 +20,32 @@ const save = async (body) => {
     roadworthinessSticker,
     ghanaCard,
   } = body;
-  const driver = await Driver.create(driver);
+  const driver = await Driver.create({ email, contact, city });
 
-  await Profile.create({
-    driverId: driver.id,
-    firstName,
-    lastName,
-    language,
-    referralCode,
-    carModel,
-    carYear,
-    licensePlate,
-    carColor,
-    nationalId,
-    driverLicense,
-    profilePhoto,
-    licenseFront,
-    proofOfInsurance,
-    roadworthinessSticker,
-    ghanaCard,
-  });
+  if (driver) {
+    await Profile.create({
+      driverId: driver.id,
+      firstName,
+      lastName,
+      language,
+      referralCode,
+      carModel,
+      carYear,
+      licensePlate,
+      carColor,
+      nationalId,
+      driverLicense,
+      profilePhoto,
+      licenseFront,
+      proofOfInsurance,
+      roadworthinessSticker,
+      ghanaCard,
+    });
+  }
 };
-module.exports = { save };
+
+const findByEmail = async (email) => {
+  return await Driver.findOne({ where: { email: email } });
+};
+
+module.exports = { save, findByEmail };
