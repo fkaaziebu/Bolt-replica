@@ -5,7 +5,7 @@ import ProfileForm2 from "./ProfileForm2";
 import ProfileForm3 from "./ProfileForm3";
 
 function ProfileForm() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   return (
     <div className="container-fluid d-flex flex-column align-items-center mt-3">
