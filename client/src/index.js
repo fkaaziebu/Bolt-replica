@@ -6,7 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import registrationReducer from "./state";
+import registrationReducer from "./state/index";
 
 const store = configureStore({
   reducer: {
