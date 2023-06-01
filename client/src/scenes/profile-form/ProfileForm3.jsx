@@ -29,13 +29,13 @@ const RegisterForm = ({ setStep }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <form>
+      <Form>
         <div className="mb-5 mt-4">
           <div className="d-flex align-items-center justify-content-between">
             <label for="profile-photo" className="form-label fs-4">
               Driver's profile photo
             </label>
-            <p className="text-danger">Reguired *</p>
+            {/* <p className="text-danger">Reguired *</p> */}
           </div>
           <p className="text-muted">
             Please provide a clear portrait picture (not a full body picture) of
@@ -129,6 +129,7 @@ const RegisterForm = ({ setStep }) => {
             <label for="gh-card" className="form-label fs-4">
               Ghana Card
             </label>
+             <p className="text-danger">Reguired *</p> 
           </div>
           <p className="text-muted">
             Please upload a front view of your Ghana Card
@@ -162,7 +163,7 @@ const RegisterForm = ({ setStep }) => {
             Next
           </button>
         </div>
-      </form>
+      </Form>
     </Formik>
   );
 };

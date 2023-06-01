@@ -1,89 +1,92 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  contact: Yup.string().required("Contact is required"),
+  city: Yup.string().required("City is required"),
+});
+
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [contact, setContact] = useState("");
-  const [contactError, setContactError] = useState("");
-  const [city, setCity] = useState("");
-  const [cityError, setCityError] = useState("");
 
-  const submitRegisterInfo = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
-        email,
-        contact,
-        city,
-      });
-      navigate("/profile-form");
-    } catch (err) {
-      setEmailError(err?.response?.data?.validationErrors?.email);
-      setContactError(err?.response?.data?.validationErrors?.contact);
-      setCityError(err?.response.data?.validationErrors?.city);
-    }
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      contact: "",
+      city: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
+          email: values.email,
+          contact: values.contact,
+          city: values.city,
+        });
+        navigate("/profile-form");
+      } catch (err) {
+        if (err.response && err.response.data && err.response.data.validationErrors) {
+          const { email, contact, city } = err.response.data.validationErrors;
+          formik.setFieldError("email", email);
+          formik.setFieldError("contact", contact);
+          formik.setFieldError("city", city);
+        }
+      }
+    },
+  });
 
   return (
-    <form onSubmit={submitRegisterInfo}>
+    <form onSubmit={formik.handleSubmit}>
       <fieldset className="d-flex flex-column">
         <legend className="fs-3 fw-bold mb-4">Signup as a driver below</legend>
         <div className="mb-1">
-          <label for="email" className="form-label fs-5">
+          <label htmlFor="email" className="form-label fs-5">
             Email
           </label>
           <input
             type="email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
-            }}
             id="email"
-            className="form-control fs-3"
+            className={`form-control fs-3 ${formik.touched.email && formik.errors.email ? "is-invalid" : ""}`}
             placeholder="john.doe@gmail.com"
+            {...formik.getFieldProps("email")}
           />
-          <p className="text-danger p-1">{emailError}</p>
+          {formik.touched.email && formik.errors.email && (
+            <p className="text-danger p-1">{formik.errors.email}</p>
+          )}
         </div>
         <div className="mb-3">
-          <label for="phone" className="form-label fs-5">
+          <label htmlFor="phone" className="form-label fs-5">
             Phone
           </label>
           <input
             type="text"
-            name="contact"
-            value={contact}
-            onChange={(e) => {
-              setContact(e.target.value);
-              setContactError("");
-            }}
             id="phone"
-            className="form-control fs-3"
+            className={`form-control fs-3 ${formik.touched.contact && formik.errors.contact ? "is-invalid" : ""}`}
             placeholder="0550815604"
+            {...formik.getFieldProps("contact")}
           />
-          <p className="text-danger p-1">{contactError}</p>
+          {formik.touched.contact && formik.errors.contact && (
+            <p className="text-danger p-1">{formik.errors.contact}</p>
+          )}
         </div>
         <div className="mb-3">
-          <label for="city" className="form-label fs-5">
+          <label htmlFor="city" className="form-label fs-5">
             City
           </label>
           <input
             type="text"
-            name="city"
-            value={city}
-            onChange={(e) => {
-              setCity(e.target.value);
-              setCityError("");
-            }}
             id="city"
-            className="form-control fs-3"
+            className={`form-control fs-3 ${formik.touched.city && formik.errors.city ? "is-invalid" : ""}`}
             placeholder="Kumasi"
+            {...formik.getFieldProps("city")}
           />
-          <p className="text-danger p-1">{cityError}</p>
+          {formik.touched.city && formik.errors.city && (
+            <p className="text-danger p-1">{formik.errors.city}</p>
+          )}
         </div>
         <div className="d-grid mt-3">
           <button type="submit" className="btn btn-primary fs-4">

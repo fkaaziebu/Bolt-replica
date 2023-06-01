@@ -1,17 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import App from './App';
-import Provider from 'react-dom'
+import App from "./App";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import registrationReducer from "./state";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const store = configureStore({
+  reducer: {
+    registration: registrationReducer,
+  },
+});
+
+ReactDOM.render(
   <React.StrictMode>
-    <Provider>
-    <App />
+    <Provider store={store}>
+      <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-

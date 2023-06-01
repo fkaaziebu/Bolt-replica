@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Login from "./Email";
+import Phone from "./Phone";
 import Password from "./Password";
 import {
   MDBContainer,
@@ -57,28 +58,7 @@ const LoginForm = () => {
           <Login />
         </MDBTabsPane>
         <MDBTabsPane show={justifyActive === "tab2"}>
-          <MDBInput
-            wrapperClass="mb-4"
-            label="Phone"
-            id="form1"
-            type="contact"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            label="Password"
-            id="form1"
-            type="password"
-          />
-
-          <MDBBtn className="mb-4 w-100" onClick={<Password />}>
-            Continue
-          </MDBBtn>
-          <div className="d-flex justify-content-center mx-4 mb-4">
-            <a href="!#">Forgot password?</a>
-          </div>
-          <p className="text-center">
-          Not a DMS Driver? <Link to="/home">Register</Link>
-          </p>
+          <Phone />
         </MDBTabsPane>
       </MDBTabsContent>
     </MDBContainer>
