@@ -6,6 +6,7 @@ const ErrorHandler = require("../src/error/ErrorHandler");
 const FileService = require("./file/FileService");
 const config = require("config");
 const path = require("path");
+const tokenAuthentication = require("./middleware/tokenAuthentication");
 
 const { uploadDir, profileDir } = config;
 const profileFolder = path.join(".", uploadDir, profileDir);
@@ -21,6 +22,7 @@ app.use(
   "/images",
   express.static(profileFolder, { maxAge: ONE_YEAR_IN_MILLIS })
 );
+app.use(tokenAuthentication);
 app.use(DriverRouter);
 app.use(AuthenticationRouter);
 

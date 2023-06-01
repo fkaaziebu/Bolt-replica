@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
 const Profile = require("./Profile");
+const Token = require("../auth/Token");
 
 const Model = Sequelize.Model;
 
@@ -22,10 +23,14 @@ Driver.init(
     city: {
       type: Sequelize.STRING,
     },
+    password: {
+      type: Sequelize.STRING,
+    },
   },
   { sequelize, modelName: "driver" }
 );
 
-Driver.hasOne(Profile, { onDelete: "cascade", foreignKey: "driverId"})
+Driver.hasOne(Profile, { onDelete: "cascade", foreignKey: "driverId" });
+Driver.hasMany(Token, { onDelete: "cascade", foreignKey: "driverId" });
 
 module.exports = Driver;
