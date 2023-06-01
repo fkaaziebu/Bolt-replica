@@ -3,7 +3,7 @@ const Profile = require("./Profile");
 const FileService = require("../file/FileService");
 
 const save = async (body) => {
-  const { email, contact, city } = body;
+  const { email, contact, city, password } = body;
   const {
     firstName,
     lastName,
@@ -21,7 +21,7 @@ const save = async (body) => {
     roadworthinessSticker,
     ghanaCard,
   } = body;
-  const driver = await Driver.create({ email, contact, city });
+  const driver = await Driver.create({ email, contact, city, password });
 
   if (driver) {
     await Profile.create({
@@ -57,4 +57,12 @@ const findByEmail = async (email) => {
   return await Driver.findOne({ where: { email: email } });
 };
 
-module.exports = { save, findByEmail };
+const profileInfo = async (driver) => {
+  return await Profile.findOne({
+    where: {
+      driverId: driver.id,
+    },
+  });
+};
+
+module.exports = { save, findByEmail, profileInfo };
