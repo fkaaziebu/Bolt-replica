@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --watch"
+    "test": "cross-env NODE_ENV=test jest --watch",
+    "posttest": "cross-env NODE_ENV=test node test-cleanup",
+    "start": "cross-env NODE_ENV=development nodemon index"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "file-type": "^16.5.4",
     "sequelize": "^6.31.1",
     "sqlite3": "^5.1.6"
   },

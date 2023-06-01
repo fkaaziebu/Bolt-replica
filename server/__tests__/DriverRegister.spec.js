@@ -4,6 +4,12 @@ const Driver = require("../src/driver/Driver");
 const Profile = require("../src/driver/Profile");
 const sequelize = require("../src/config/database");
 const msg = require("../src/messages");
+const path = require("path");
+const fs = require("fs");
+const config = require("config");
+
+const { uploadDir, profileDir } = config;
+const profileDirectory = path.join(".", uploadDir, profileDir);
 
 beforeAll(() => {
   return sequelize.sync();
@@ -22,15 +28,15 @@ const validDriver = {
   referralCode: "",
   carModel: "Toyota-G4",
   carYear: "2023",
-  licensePlate: "picture-path",
+  licensePlate: "717 TTP",
   carColor: "red",
-  nationalId: "picture-path",
-  driverLicense: "picture-path",
-  profilePhoto: "picture-path",
-  licenseFront: "picture-path",
-  proofOfInsurance: "picture-path",
-  roadworthinessSticker: "picture-path",
-  ghanaCard: "picture-path",
+  nationalId: "304567876543",
+  driverLicense: "AB2467876",
+  profilePhoto: null,
+  licenseFront: null,
+  proofOfInsurance: null,
+  roadworthinessSticker: null,
+  ghanaCard: null,
 };
 const postDriver = (driver = validDriver) => {
   return request(app).post("/api/1.0/drivers").send(driver);
@@ -44,7 +50,7 @@ describe("Driver Registration", () => {
 
   it("returns success message when signup request is valid", async () => {
     const response = await postDriver();
-    expect(response.body.message).toBe("Driver created");
+    expect(response.body.message).toBe(msg.driver_create_success);
   });
 
   it("saves the driver to database", async () => {
@@ -54,10 +60,11 @@ describe("Driver Registration", () => {
   });
 
   it("saves the drivers profile to database", async () => {
-    const driver = await postDriver();
+    await postDriver();
+    const driver = await Driver.findAll();
     const driverProfile = await Profile.findAll();
 
-    expect(driverProfile[0].driverId).toBe(4);
+    expect(driverProfile[0].driverId).toBe(driver[0].id);
   });
 
   it("saves the email, contact and city to database", async () => {
@@ -160,6 +167,94 @@ describe("Driver Registration", () => {
       "contact",
     ]);
   });
+});
+
+const readFileAsBase64 = (file = "test-png.png") => {
+  const filePath = path.join(".", "__tests__", "resources", file);
+  return fs.readFileSync(filePath, { encoding: "base64" });
+};
+
+/* IMAGE UPLOADS */
+describe("Image uploads", () => {
+  // Success Cases
+  it.each`
+    field                      | image
+    ${"profilePhoto"}          | ${readFileAsBase64()}
+    ${"licenseFront"}          | ${readFileAsBase64()}
+    ${"proofOfInsurance"}      | ${readFileAsBase64()}
+    ${"roadworthinessSticker"} | ${readFileAsBase64()}
+    ${"ghanaCard"}             | ${readFileAsBase64()}
+  `("saves $field image to database", async ({ field, image }) => {
+    const driver = { ...validDriver };
+    driver[field] = image;
+    const response = await postDriver({
+      ...driver,
+    });
+    const driverProfile = await Profile.findAll();
+    expect(driverProfile[0][field]).toBeTruthy();
+  });
+
+  it.each`
+    field                      | image
+    ${"profilePhoto"}          | ${readFileAsBase64()}
+    ${"licenseFront"}          | ${readFileAsBase64()}
+    ${"proofOfInsurance"}      | ${readFileAsBase64()}
+    ${"roadworthinessSticker"} | ${readFileAsBase64()}
+    ${"ghanaCard"}             | ${readFileAsBase64()}
+  `(
+    "saves $field image to upload folder and stores filename in Profile $field field",
+    async ({ field, image }) => {
+      const driver = { ...validDriver };
+      driver[field] = image;
+      const response = await postDriver({
+        ...driver,
+      });
+      const driverProfile = await Profile.findAll();
+      const profileImagePath = path.join(
+        profileDirectory,
+        driverProfile[0][field]
+      );
+      expect(fs.existsSync(profileImagePath)).toBe(true);
+    }
+  );
+
+  it.each`
+    file              | status
+    ${"test-gif.gif"} | ${400}
+    ${"test-pdf.pdf"} | ${400}
+    ${"test-txt.txt"} | ${400}
+    ${"test-png.png"} | ${200}
+    ${"test-jpg.jpg"} | ${200}
+  `(
+    "returns $status when uploading $file as image",
+    async ({ file, status }) => {
+      const driver = { ...validDriver };
+      const filename = readFileAsBase64(file);
+      driver["profilePhoto"] = filename;
+      const response = await postDriver({
+        ...driver,
+      });
+      expect(response.status).toBe(status);
+    }
+  );
+
+  it.each`
+    file              | message
+    ${"test-gif.gif"} | ${msg.unsupported_image_file}
+    ${"test-pdf.pdf"} | ${msg.unsupported_image_file}
+    ${"test-txt.txt"} | ${msg.unsupported_image_file}
+  `(
+    "returns $status when uploading $file as image",
+    async ({ file, message }) => {
+      const driver = { ...validDriver };
+      const filename = readFileAsBase64(file);
+      driver["profilePhoto"] = filename;
+      const response = await postDriver({
+        ...driver,
+      });
+      expect(response.body.validationErrors.profilePhoto).toBe(message);
+    }
+  );
 });
 
 /* ERROR MODEL */

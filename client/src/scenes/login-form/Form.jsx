@@ -10,9 +10,7 @@ import {
   MDBTabsContent,
   MDBTabsPane,
   MDBBtn,
-  MDBIcon,
   MDBInput,
-  MDBCheckbox,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom"; // Import the Link component from React Router
 

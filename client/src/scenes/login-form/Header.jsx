@@ -10,7 +10,7 @@ function Header() {
         href="#login"
         onClick={(e) => {
           e.preventDefault();
-          navigate("/login-form");
+          navigate("/");
         }}
       >
         DMS
