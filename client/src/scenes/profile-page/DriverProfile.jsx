@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Container, ListGroup } from 'react-bootstrap';
-import { FaBars, FaChevronLeft, FaChevronRight, FaInbox, FaEnvelope } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Navbar, Nav, Container, ListGroup } from "react-bootstrap";
+import {
+  FaBars,
+  FaChevronLeft,
+  FaChevronRight,
+  FaInbox,
+  FaEnvelope,
+} from "react-icons/fa";
 
 const drawerWidth = 240;
 
@@ -21,38 +26,43 @@ const MiniDrawer = () => {
       <Navbar bg="light" expand="lg" fixed="top">
         <Container>
           <Navbar.Brand>Mini variant drawer</Navbar.Brand>
-          <Navbar.Toggle onClick={handleDrawerOpen} aria-controls="navbar-nav" />
+          <Navbar.Toggle
+            onClick={handleDrawerOpen}
+            aria-controls="navbar-nav"
+          >
+            <FaBars />
+          </Navbar.Toggle>
         </Container>
       </Navbar>
-      <Container fluid className={`d-flex ${open ? 'open' : ''}`}>
-        <Nav className={`flex-column bg-light sidebar ${open ? 'open' : ''}`}>
+      <Container fluid className={`d-flex ${open ? "open" : ""}`}>
+        <Nav className={`flex-column bg-light sidebar ${open ? "open" : ""}`}>
           <Nav.Item>
             <Nav.Link onClick={handleDrawerClose}>
               {open ? <FaChevronLeft /> : <FaChevronRight />}
             </Nav.Link>
           </Nav.Item>
-          <hr />
+          <hr className="my-2" />
           <ListGroup>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
               <ListGroup.Item key={text} className="d-block p-0">
                 <Nav.Link className="d-flex align-items-center">
                   <span className="me-3">
                     {index % 2 === 0 ? <FaInbox /> : <FaEnvelope />}
                   </span>
-                  <span className={`${open ? '' : 'd-none'}`}>{text}</span>
+                  <span className={`${open ? "" : "d-none"}`}>{text}</span>
                 </Nav.Link>
               </ListGroup.Item>
             ))}
           </ListGroup>
-          <hr />
+          <hr className="my-2" />
           <ListGroup>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            {["All mail", "Trash", "Spam"].map((text, index) => (
               <ListGroup.Item key={text} className="d-block p-0">
                 <Nav.Link className="d-flex align-items-center">
                   <span className="me-3">
                     {index % 2 === 0 ? <FaInbox /> : <FaEnvelope />}
                   </span>
-                  <span className={`${open ? '' : 'd-none'}`}>{text}</span>
+                  <span className={`${open ? "" : "d-none"}`}>{text}</span>
                 </Nav.Link>
               </ListGroup.Item>
             ))}
