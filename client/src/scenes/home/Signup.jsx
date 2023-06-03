@@ -1,8 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  const navigate = useNavigate();
   return (
     <div className="container-lg d-flex justify-content-center mb-5">
       <button

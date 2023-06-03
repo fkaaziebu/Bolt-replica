@@ -1,245 +1,154 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { setField, resetForm } from "../../state";
-
-
-const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
-  language: Yup.string().required("Language is required"),
-  model: Yup.string().required("Vehicle model is required"),
-  vehicleYear: Yup.string().required("Vehicle year is required"),
-  licensePlate: Yup.string().required("License plate is required"),
-  color: Yup.string().required("Vehicle color is required"),
-});
+import { updateUserField } from "../../state/index";
+import { useDispatch, useSelector } from "react-redux";
 
 const RegisterForm = ({ setStep }) => {
-  const registrationData = useSelector((state) => state.registration);
   const dispatch = useDispatch();
-  const [formError, setFormError] = useState(false);
+  const user = useSelector((state) => state.registration.user);
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    if (formError) {
-      // Form has errors, do not proceed with submission
-      setSubmitting(false);
-      return;
-    }
+  const profileOneValues = {
+    firstName: "",
+    lastName: "",
+    language: "",
+    referralCode: "",
+    model: "",
+    vehicleYear: "",
+    licensePlate: "",
+    color: "",
+  };
 
-    // Handle form submission with valid values
+  const profileOneValuesValidation = Yup.object({
+    firstName: Yup.string().required("First Name required"),
+    lastName: Yup.string().required("Last Name required"),
+    language: Yup.string().required("Language required"),
+    referralCode: Yup.string().required("Referral Code required"),
+    model: Yup.string().required("Vehicle model required"),
+    vehicleYear: Yup.string().required("Vehicle year required"),
+    licensePlate: Yup.string().required("License plate number required"),
+    color: Yup.string().required("Vehicle color required"),
+  });
+
+  const handleSubmit = (values) => {
+    dispatch(updateUserField({ ...values }));
     setStep(2);
+    console.log("User: " + user);
   };
-  const handleFieldChange = (event) => {
-    const { name, value } = event.target;
-    dispatch(setField({ field: name, value }));
-  };
-
 
   return (
     <Formik
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        language: "",
-        referralCode: "",
-        model: "",
-        vehicleYear: "",
-        licensePlate: "",
-        color: "",
-      }}
-      validationSchema={validationSchema}
+      initialValues={profileOneValues}
+      validationSchema={profileOneValuesValidation}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
-        <Form>
-          <div className="mb-4 mt-4">
-            <label htmlFor="firstName" className="form-label fw-bold">
-              First name
-            </label>
-            <Field
-              type="text"
-              id="firstName"
-              name="firstName"
-              className="form-control fs-5 p-3 bg-light-50 border border-0"
-              placeholder="First name"
-            />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="lastName" className="form-label fw-bold">
-              Last name
-            </label>
-            <Field
-              type="text"
-              id="lastName"
-              name="lastName"
-              className="form-control fs-5 p-3 bg-light-50 border border-0"
-              placeholder="Last name"
-            />
-            <ErrorMessage
-              name="lastName"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="language" className="form-label fw-bold">
-              Language
-            </label>
-            <Field
-              as="select"
-              id="language"
-              name="language"
-              className="form-select fs-5 p-3 bg-light-50 border border-0"
-            >
-              <option value="">Select language</option>
-              <option value="English">English</option>
-              <option value="American">American</option>
-            </Field>
-            <ErrorMessage
-              name="language"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="referralCode" className="form-label fw-bold">
-              Referral code
-            </label>
-            <Field
-              type="text"
-              id="referralCode"
-              name="referralCode"
-              className="form-control fs-5 p-3 bg-light-50 border border-0"
-              placeholder="Referral code"
-            />
-            <p>If someone referred you, enter their code</p>
-            <ErrorMessage
-              name="referralCode"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="model" className="form-label fw-bold">
-              Vehicle manufacturer and model
-            </label>
-            <Field
-              as="select"
-              id="model"
-              name="model"
-              className="form-select fs-5 p-3 bg-light-50 border border-0"
-            >
-              <option value="">Select vehicle model</option>
-              <option value="Model 1">Model 1</option>
-              <option value="Model 2">Model 2</option>
-              {/* Add more vehicle model options as needed */}
-            </Field>
-            <ErrorMessage
-              name="model"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="vehicleYear" className="form-label fw-bold">
-              Vehicle year
-            </label>
-            <Field
-              as="select"
-              id="vehicleYear"
-              name="vehicleYear"
-              className="form-select fs-5 p-3 bg-light-50 border border-0"
-            >
-              <option value="">Select vehicle year</option>
-              <option value="2020">2023</option>
-              <option value="2021">2022</option>
-              <option value="2021">2021</option>
-              <option value="2021">2020</option>
-              <option value="2021">2019</option>
-              <option value="2021">2018</option>
-              <option value="2021">2017</option>
-              <option value="2021">2016</option>
-              <option value="2021">2015</option>
-              <option value="2021">2014</option>
-              <option value="2021">2013</option>
-              <option value="2021">2012</option>
-              <option value="2021">2011</option>
-              <option value="2021">2010</option>
-              <option value="2021">2009</option>
+      <Form>
+        <div className="mb-4 mt-4">
+          <label htmlFor="firstName" className="form-label fw-bold">
+            firstName
+          </label>
+          <Field
+            name="firstName"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="firstName" />
+        </div>
 
-            </Field>
-            <ErrorMessage
-              name="vehicleYear"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="licensePlate" className="form-label fw-bold">
-              License plate
-            </label>
-            <Field
-              type="text"
-              id="licensePlate"
-              name="licensePlate"
-              className="form-control fs-5 p-3 bg-light-50 border border-0"
-              placeholder="717 TTP"
-            />
-            <ErrorMessage
-              name="licensePlate"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          <div className="mb-4 mt-4">
-            <label htmlFor="color" className="form-label fw-bold">
-              Vehicle color
-            </label>
-            <Field
-              as="select"
-              id="color"
-              name="color"
-              className="form-select fs-5 p-3 bg-light-50 border border-0"
-            >
-              <option value="">Select vehicle color</option>
-              <option value="Red">Red</option>
-              <option value="Blue">Orange</option>
-              <option value="Blue">Yellow</option>
-              <option value="Blue">Green</option>
-              <option value="Blue">Blue</option>
-              <option value="Blue">Ash</option>
-              <option value="Blue">Violet</option>
-              <option value="Blue">Grey</option>
-              <option value="Blue">White</option>
-            </Field>
-            <ErrorMessage
-              name="color"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-          {formError && (
-            <div className="alert alert-danger" role="alert">
-              Please fill in all the required fields.
-            </div>
-          )}
-          <div className="d-flex justify-content-center mt-3">
-            <button
-              type="submit"
-              className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
-              disabled={isSubmitting}
-            >
-              Next
-            </button>
-          </div>
-        </Form>
-      )}
+        <div className="mb-4 mt-4">
+          <label htmlFor="lastName" className="form-label fw-bold">
+            lastName
+          </label>
+          <Field
+            name="lastName"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="lastName" />
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="Language" className="form-label fw-bold">
+            Language
+          </label>
+          <Field
+            name="Language"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="Language" />
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="referralCode" className="form-label fw-bold">
+            Referral code
+          </label>
+          <Field
+            name="referralCode"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="referralCode" />
+          <p>If someone referred you, enter their code</p>
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="model" className="form-label fw-bold">
+            Vehicle manufacturer and model
+          </label>
+          <Field
+            name="model"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="model" />
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="vehicleYear" className="form-label fw-bold">
+            Vehicle year
+          </label>
+          <Field
+            name="vehicleYear"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="vehicleYear" />
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="licensePlate" className="form-label fw-bold">
+            License plate
+          </label>
+          <Field
+            name="licensePlate"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="licensePlate" />
+        </div>
+
+        <div className="mb-4 mt-4">
+          <label htmlFor="color" className="form-label fw-bold">
+            Vehicle color
+          </label>
+          <Field
+            name="color"
+            type="text"
+            className="form-control fs-5 p-3 bg-light-50 border border-0"
+          />
+          <ErrorMessage name="color" />
+        </div>
+
+        <div className="d-flex justify-content-center mt-3">
+          <button
+            type="submit"
+            className="btn btn-primary fs-4 mt-5 py-2 px-4 rounded-pill"
+          >
+            Next
+          </button>
+        </div>
+      </Form>
     </Formik>
   );
 };

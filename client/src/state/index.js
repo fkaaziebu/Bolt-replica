@@ -1,31 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  language: "",
-  referralCode: "",
-  model: "",
-  vehicleYear: "",
-  licensePlate: "",
-  color: "",
-  
+  user: {},
 };
 
 export const registrationSlice = createSlice({
   name: "registration",
   initialState,
   reducers: {
-    setField: (state, action) => {
-      const { field, value } = action.payload;
-      state[field] = value;
-    },
-    resetForm: (state) => {
-      return initialState;
+    updateUserField: (state, action) => {
+      state.user = {...state.user, ...action.payload}
     },
   },
 });
 
-export const { setField, resetForm } = registrationSlice.actions;
+export const { updateUserField } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
