@@ -1,6 +1,7 @@
 import Home from "./scenes/home";
 import ProfileForm from "./scenes/profile-form"
 import LoginForm from "./scenes/login-form"
+import MiniDrawer from "./scenes/profile-page/DriverProfile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -13,6 +14,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile-form" element={<ProfileForm />} />
           <Route path="/login-form" element={<LoginForm />} />
+          <Route path="/profile-page" element={<MiniDrawer />} />
         </Routes>
       </BrowserRouter>
     </div>
