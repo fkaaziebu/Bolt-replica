@@ -12,7 +12,7 @@ const RegisterForm = () => {
 
   const registerFormValues = { email: "", contact: "", city: "" };
 
-  const registerFormValuesValidation = Yup.object({
+  const registerFormValuesValidation = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email required"),
@@ -23,7 +23,7 @@ const RegisterForm = () => {
   const handleSubmit = (values) => {
     dispatch(updateUserField({ ...values }));
     navigate("/profile-form");
-    console.log("User: " + user);
+    console.log("User in Register: " + user?.email);
   };
 
   return (

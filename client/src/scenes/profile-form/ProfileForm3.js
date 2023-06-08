@@ -1,38 +1,80 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { updateUserField } from "../../state/index";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const validationSchema = Yup.object().shape({
-  profilePhoto: Yup.mixed().required("Required"),
-  license: Yup.mixed().required("Required"),
-  insurance: Yup.mixed().required("Required"),
-  worthiness: Yup.mixed().required("Required"),
-  ghCard: Yup.mixed().required("Required"),
-});
+const convertBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
+
 const RegisterForm = ({ setStep }) => {
-  const initialValues = {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.registration.user);
+  const navigate = useNavigate();
+
+  const profileThreeValues = {
     profilePhoto: "",
-    license: "",
-    insurance: "",
-    worthiness: "",
-    ghCard: "",
+    licenseFront: "",
+    proofOfInsurance: "",
+    roadworthinessSticker: "",
+    ghanaCard: "",
   };
 
-  const handleSubmit = (values) => {
-    setStep(3);
-    // Handle form submission
-    console.log(values);
+  const profileThreeValuesValidation = Yup.object().shape({
+    profilePhoto: Yup.mixed(),
+    licenseFront: Yup.mixed().required("Required"),
+    proofOfInsurance: Yup.mixed().required("Required"),
+    roadworthinessSticker: Yup.mixed().required("Required"),
+    ghanaCard: Yup.mixed().required("Required"),
+  });
+
+  const handleSubmit = async (values) => {
+    dispatch(updateUserField({ ...values }));
+    
+    const {
+      profilePhoto,
+      licenseFront,
+      proofOfInsurance,
+      roadworthinessSticker,
+      ghanaCard,
+    } = user;
+
+    user[profilePhoto] = await convertBase64(profilePhoto);
+    user[licenseFront] = await convertBase64(licenseFront);
+    user[proofOfInsurance] = await convertBase64(proofOfInsurance);
+    user[roadworthinessSticker] = await convertBase64(roadworthinessSticker);
+    user[ghanaCard] = await convertBase64(ghanaCard);
+
+    await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
+      ...user,
+    });
+    navigate("/login-form");
   };
+
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
+      initialValues={profileThreeValues}
+      validationSchema={profileThreeValuesValidation}
       onSubmit={handleSubmit}
     >
       <Form>
         <div className="mb-5 mt-4">
           <div className="d-flex align-items-center justify-content-between">
-            <label for="profile-photo" className="form-label fs-4">
+            <label htmlFor="profilePhoto" className="form-label fs-4">
               Driver's profile photo
             </label>
             {/* <p className="text-danger">Reguired *</p> */}
@@ -41,21 +83,24 @@ const RegisterForm = ({ setStep }) => {
             Please provide a clear portrait picture (not a full body picture) of
             yourself. It should show your full face, front view, with eyes open.
           </p>
-          <input
+          <Field
+            name="profilePhoto"
+            id="profilePhoto"
             type="file"
-            id="profile-photo"
             className="form-control fs-5 bg-light-50 border border-0"
           />
           <ErrorMessage
-            name="profile-photo"
+            name="profilePhoto"
             component="div"
             className="text-danger"
           />
         </div>
+
         <div className="divider"></div>
+
         <div className="mb-5 mt-5">
           <div className="d-flex align-items-center justify-content-between">
-            <label for="license" className="form-label fs-4">
+            <label htmlFor="licenseFront" className="form-label fs-4">
               Driver's License Front
             </label>
             <p className="text-danger">Reguired *</p>
@@ -65,21 +110,24 @@ const RegisterForm = ({ setStep }) => {
             More details on{" "}
             <a href="http://dvla.gov.gh/">http://dvla.gov.gh/</a>
           </p>
-          <input
+          <Field
+            name="licenseFront"
+            id="licenseFront"
             type="file"
-            id="license"
             className="form-control fs-5 bg-light-50 border border-0"
           />
           <ErrorMessage
-            name="license"
+            name="licenseFront"
             component="div"
             className="text-danger"
           />
         </div>
+
         <div className="divider"></div>
+
         <div className="mb-5 mt-5">
           <div className="d-flex align-items-center justify-content-between">
-            <label for="insurance" className="form-label fs-4">
+            <label htmlFor="proofOfInsurance" className="form-label fs-4">
               Proof of insurance
             </label>
             <p className="text-danger">Reguired *</p>
@@ -88,21 +136,25 @@ const RegisterForm = ({ setStep }) => {
             Third party coverage, comprehensive - Speak to your local Insurance
             Company for details
           </p>
-          <input
+          <Field
+            name="proofOfInsurance"
+            id="proofOfInsurance"
             type="file"
-            id="insurance"
             className="form-control fs-5 bg-light-50 border border-0"
           />
           <ErrorMessage
-            name="insurance"
+            name="proofOfInsurance"
             component="div"
             className="text-danger"
           />
         </div>
+
+        <div className="divider"></div>
+
         <div className="divider"></div>
         <div className="mb-5 mt-5">
           <div className="d-flex align-items-center justify-content-between">
-            <label for="worthiness" className="form-label fs-4">
+            <label htmlFor="roadworthinessSticker" className="form-label fs-4">
               Roadworthiness Sticker
             </label>
             <p className="text-danger">Reguired *</p>
@@ -112,44 +164,50 @@ const RegisterForm = ({ setStep }) => {
             uploading here. More details on the document here -{" "}
             <a href="http://dvla.gov.gh/">http://dvla.gov.gh/</a>
           </p>
-          <input
+          <Field
+            name="roadworthinessSticker"
+            id="roadworthinessSticker"
             type="file"
-            id="worthiness"
             className="form-control fs-5 bg-light-50 border border-0"
           />
           <ErrorMessage
-            name="worthiness"
+            name="roadworthinessSticker"
             component="div"
             className="text-danger"
           />
         </div>
+
         <div className="divider"></div>
+
         <div className="mb-5 mt-5">
           <div className="d-flex align-items-center justify-content-between">
-            <label for="gh-card" className="form-label fs-4">
+            <label for="ghanaCard" className="form-label fs-4">
               Ghana Card
             </label>
-             <p className="text-danger">Reguired *</p> 
+            <p className="text-danger">Reguired *</p>
           </div>
           <p className="text-muted">
             Please upload a front view of your Ghana Card
           </p>
-          <input
+          <Field
+            name="ghanaCard"
+            id="ghanaCard"
             type="file"
-            id="gh-card"
             className="form-control fs-5 bg-light-50 border border-0"
           />
           <ErrorMessage
-            name="gh-card"
+            name="ghanaCard"
             component="div"
             className="text-danger"
           />
         </div>
+
         <div className="divider"></div>
+
         <div className="d-flex justify-content-around mt-3">
           <button
             type="button"
-            className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
+            className="btn btn-primary fs-4 mt-5 py-2 px-4 rounded-pill"
             onClick={() => {
               setStep(2);
             }}
@@ -158,7 +216,7 @@ const RegisterForm = ({ setStep }) => {
           </button>
           <button
             type="submit"
-            className="btn btn-primary fs-4 mt-5 py-3 px-5 rounded-pill"
+            className="btn btn-primary fs-4 mt-5 py-2 px-4 rounded-pill"
           >
             Next
           </button>
@@ -168,7 +226,7 @@ const RegisterForm = ({ setStep }) => {
   );
 };
 
-function ProfileForm1({ setStep }) {
+function ProfileForm3({ setStep }) {
   return (
     <div className="container-sm d-flex flex-column align-items-center mt-4">
       <div className="w-100 mt-4">
@@ -185,4 +243,4 @@ function ProfileForm1({ setStep }) {
   );
 }
 
-export default ProfileForm1;
+export default ProfileForm3;

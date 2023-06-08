@@ -2,38 +2,36 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { updateUserField } from "../../state/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const RegisterForm = ({ setStep }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.registration.user);
 
   const profileOneValues = {
     firstName: "",
     lastName: "",
     language: "",
     referralCode: "",
-    model: "",
-    vehicleYear: "",
+    carModel: "",
+    carYear: "",
     licensePlate: "",
-    color: "",
+    carColor: "",
   };
 
-  const profileOneValuesValidation = Yup.object({
+  const profileOneValuesValidation = Yup.object().shape({
     firstName: Yup.string().required("First Name required"),
     lastName: Yup.string().required("Last Name required"),
     language: Yup.string().required("Language required"),
-    referralCode: Yup.string().required("Referral Code required"),
-    model: Yup.string().required("Vehicle model required"),
-    vehicleYear: Yup.string().required("Vehicle year required"),
+    referralCode: Yup.string().required("Referral is required"),
+    carModel: Yup.string().required("Vehicle model required"),
+    carYear: Yup.string().required("Vehicle year required"),
     licensePlate: Yup.string().required("License plate number required"),
-    color: Yup.string().required("Vehicle color required"),
+    carColor: Yup.string().required("Vehicle color required"),
   });
 
   const handleSubmit = (values) => {
     dispatch(updateUserField({ ...values }));
     setStep(2);
-    console.log("User: " + user);
   };
 
   return (
@@ -49,10 +47,15 @@ const RegisterForm = ({ setStep }) => {
           </label>
           <Field
             name="firstName"
+            id="firstName"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="firstName" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="firstName"
+          />
         </div>
 
         <div className="mb-4 mt-4">
@@ -61,22 +64,32 @@ const RegisterForm = ({ setStep }) => {
           </label>
           <Field
             name="lastName"
+            id="lastName"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="lastName" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="lastName"
+          />
         </div>
 
         <div className="mb-4 mt-4">
-          <label htmlFor="Language" className="form-label fw-bold">
+          <label htmlFor="language" className="form-label fw-bold">
             Language
           </label>
           <Field
-            name="Language"
+            name="language"
+            id="language"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="Language" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="Language"
+          />
         </div>
 
         <div className="mb-4 mt-4">
@@ -85,35 +98,46 @@ const RegisterForm = ({ setStep }) => {
           </label>
           <Field
             name="referralCode"
+            id="referralCode"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="referralCode" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="referralCode"
+          />
           <p>If someone referred you, enter their code</p>
         </div>
 
         <div className="mb-4 mt-4">
-          <label htmlFor="model" className="form-label fw-bold">
+          <label htmlFor="carModel" className="form-label fw-bold">
             Vehicle manufacturer and model
           </label>
           <Field
-            name="model"
+            name="carModel"
+            id="carModel"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="model" />
+          <ErrorMessage component="div" className="text-danger" name="carModel" />
         </div>
 
         <div className="mb-4 mt-4">
-          <label htmlFor="vehicleYear" className="form-label fw-bold">
+          <label htmlFor="carYear" className="form-label fw-bold">
             Vehicle year
           </label>
           <Field
-            name="vehicleYear"
+            name="carYear"
+            id="carYear"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="vehicleYear" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="carYear"
+          />
         </div>
 
         <div className="mb-4 mt-4">
@@ -122,22 +146,28 @@ const RegisterForm = ({ setStep }) => {
           </label>
           <Field
             name="licensePlate"
+            id="licensePlate"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="licensePlate" />
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="licensePlate"
+          />
         </div>
 
         <div className="mb-4 mt-4">
-          <label htmlFor="color" className="form-label fw-bold">
+          <label htmlFor="carColor" className="form-label fw-bold">
             Vehicle color
           </label>
           <Field
-            name="color"
+            name="carColor"
+            id="carColor"
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
-          <ErrorMessage name="color" />
+          <ErrorMessage component="div" className="text-danger" name="carColor" />
         </div>
 
         <div className="d-flex justify-content-center mt-3">

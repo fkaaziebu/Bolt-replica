@@ -9,7 +9,7 @@ export const registrationSlice = createSlice({
   initialState,
   reducers: {
     updateUserField: (state, action) => {
-      state.user = {...state.user, ...action.payload}
+      state.user = { ...state.user, ...action.payload };
     },
   },
 });
