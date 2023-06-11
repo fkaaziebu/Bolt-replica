@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap-icons": "^1.10.5",
-    "formik": "^2.4.0",
+    "formik": "^2.4.1",
     "fs": "^0.0.1-security",
     "mdb-react-ui-kit": "^6.0.0",
     "path": "^0.12.7",

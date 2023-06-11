@@ -11,9 +11,9 @@ function ProfileForm() {
     <div className="container-fluid d-flex flex-column align-items-center mt-3">
       <div className="container p-0">
           <Header />
-          {step === 1 && <ProfileForm4 setStep={setStep} />}
+          {step === 3 && <ProfileForm4 setStep={setStep} />}
           {step === 2 && <ProfileForm2 setStep={setStep} />}
-          {step === 3 && <ProfileForm1 setStep={setStep} />}
+          {step === 1 && <ProfileForm1 setStep={setStep} />}
       </div>
     </div>
   );
