@@ -50,7 +50,7 @@ function Login() {
                 src={vpassLogo}
                 alt="VPASS logo"
               />
-              <div className="fs-4 fw-normal">Sign in to use VPASS</div>
+              <div className="fs-4 fw-normal">Sign in to your DMS Account</div>
             </legend>
             <div className="form-floating mb-3">
               <Field
