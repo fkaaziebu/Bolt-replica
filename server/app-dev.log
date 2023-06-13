@@ -1,0 +1,93 @@
+[2023-06-13T18:21:03.023] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:22:52.046] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:22:57.113] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:23:17.443] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:23:17.445] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:24:09.857] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:24:11.636] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:25:28.214] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:26:19.045] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:26:20.857] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:27:46.641] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:29:08.168] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:31:06.425] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:32:34.175] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:32:38.995] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:35:39.396] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:38:47.183] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:39:46.854] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:40:43.584] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:41:35.745] [INFO] default - /api/1.0/drivers	POST
+[2023-06-13T18:41:58.298] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:42:17.277] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:43:36.622] [INFO] default - /api/1.0/drivers	POST
+[2023-06-13T18:44:51.215] [INFO] default - /api/1.0/auth	POST
+[2023-06-13T18:45:56.418] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:49:28.062] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:49:52.059] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:50:03.789] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:51:35.274] [INFO] default - /api/1.0/drivers	POST	[object Object]
+[2023-06-13T18:53:01.993] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:57:23.485] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:57:55.195] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:57:55.301] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:58:14.943] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:58:15.303] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:58:27.128] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:58:27.272] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T18:58:53.567] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T18:58:55.456] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:00:59.173] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T19:00:59.209] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T19:03:57.469] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:03:59.980] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:02.958] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:06.086] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:10.884] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:21.410] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:23.144] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:24.612] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:30.206] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:32.888] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:38.808] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:41.296] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:47.046] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:49.789] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:04:55.844] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:05:08.677] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:05:12.871] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:05:30.246] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:05:47.954] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:05:59.644] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:01.900] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:10.360] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:11.645] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:13.789] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:22.849] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:26.517] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:31.216] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:32.710] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:49.937] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:51.489] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:06:59.372] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:08.068] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:16.725] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:50.049] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:56.317] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:57.701] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:07:59.051] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:08:05.122] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T19:08:05.136] [ERROR] default - /api/1.0/auth	POST	401
+[object Object]	Incorrect credentials
+[2023-06-13T19:08:35.022] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:08:36.866] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T19:08:36.882] [ERROR] default - /api/1.0/auth	POST	401	Incorrect credentials
+[2023-06-13T19:08:50.511] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:08:54.483] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:08:55.510] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:08:57.775] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:09:03.951] [INFO] default - app is running. version: 1.0.0
+[2023-06-13T19:09:06.344] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-13T19:09:06.355] [ERROR] default - /api/1.0/auth	POST	401	Incorrect credentials
+[2023-06-13T19:09:06.356] [INFO] default - { email: 'frederickaziebu1998@gmail.com', password: 'Di3DSAc6ox' }
+[2023-06-13T19:39:34.124] [INFO] default - app is running. version: 1.0.0

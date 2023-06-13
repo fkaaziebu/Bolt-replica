@@ -5,6 +5,7 @@ const TokenService = require("./TokenService");
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const msg = require("../messages");
+const { logger } = require("../shared/logger");
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.post(
   "/api/1.0/auth",
   check("email").isEmail().withMessage(msg.authentication_failure),
   async (req, res, next) => {
+    logger("", req);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -73,6 +75,7 @@ router.post(
 );
 
 router.post("/api/1.0/logout", async (req, res, next) => {
+  logger("", req);
   const authorization = req.headers.authorization;
   if (authorization) {
     const token = authorization.substring(7);

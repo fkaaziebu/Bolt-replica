@@ -19,5 +19,7 @@
     "from": "haaziebu@gmail.com"
   },
   "uploadDir": "uploads-dev",
-  "profileDir": "profile"
+  "profileDir": "profile",
+  "logFileName": "app-dev.log",
+  "logFolderName": "logs-dev/"
 }

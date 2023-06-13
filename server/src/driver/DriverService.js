@@ -5,6 +5,7 @@ const generatePassword = require("../shared/generatePassword");
 const sequelize = require("../config/database");
 const EmailService = require("../email/EmailService");
 const EmailException = require("../email/EmailException");
+const bcrypt = require("bcrypt");
 
 const save = async (body) => {
   const { email, contact, city, password } = body;
@@ -28,6 +29,7 @@ const save = async (body) => {
   } = body;
 
   const passwordGenerated = generatePassword();
+  const hash = await bcrypt.hash(password ? password : passwordGenerated, 10);
 
   const transaction = await sequelize.transaction();
 
@@ -36,7 +38,7 @@ const save = async (body) => {
       email,
       contact,
       city,
-      password: password ? password : passwordGenerated,
+      password: hash,
     },
     { transaction }
   );

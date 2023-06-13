@@ -18,5 +18,7 @@
     "from": "My App <info@my-app.com>"
   },
   "uploadDir": "uploads-test",
-  "profileDir": "profile"
+  "profileDir": "profile",
+  "logFileName": "app-test.log",
+  "logFolderName": "logs-test/"
 }

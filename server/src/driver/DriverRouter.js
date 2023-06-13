@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 const ValidationException = require("../error/ValidationException");
 const msg = require("../messages");
 const FileService = require("../file/FileService");
+const { logger } = require("../shared/logger");
 
 const router = express.Router();
 
@@ -25,9 +26,15 @@ router.post(
     }),
   check("contact").notEmpty().withMessage("Contact cannot be null"),
   check("city").notEmpty().withMessage("City cannot be null"),
-  check(["profilePhoto", "licenseFront", "proofOfInsurance", "roadworthinessSticker", "ghanaCard"]).custom(async (imageAsBase64String) => {
+  check([
+    "profilePhoto",
+    "licenseFront",
+    "proofOfInsurance",
+    "roadworthinessSticker",
+    "ghanaCard",
+  ]).custom(async (imageAsBase64String) => {
     if (!imageAsBase64String) {
-      return true
+      return true;
     }
     const buffer = Buffer.from(imageAsBase64String, "base64");
 
@@ -36,9 +43,10 @@ router.post(
       throw new Error(msg.unsupported_image_file);
     }
 
-    return true
+    return true;
   }),
   async (req, res, next) => {
+    logger("", req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return next(new ValidationException(errors.array()));

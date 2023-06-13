@@ -6,6 +6,7 @@ const sequelize = require("./src/config/database");
 const fs = require("fs");
 const path = require("path");
 const FileService = require("./src/file/FileService");
+const { log } = require("./src/shared/logger");
 
 const addDrivers = async () => {
   const hash = await bcrypt.hash("P4ssword", 10);
@@ -54,5 +55,5 @@ sequelize.sync({ force: true }).then(async () => {
 });
 
 app.listen(7000, () => {
-  console.log("app is running...");
+  log.info("app is running. version: " + process.env.npm_package_version);
 });
