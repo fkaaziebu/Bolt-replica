@@ -67,6 +67,7 @@ const addDriver = async (driver = { ...activeDriver }) => {
   }
 
   const { id, email, contact, city } = driverInfo;
+  
   const {
     firstName,
     lastName,
@@ -85,6 +86,7 @@ const addDriver = async (driver = { ...activeDriver }) => {
     ghanaCard,
     password,
   } = driverProfile;
+
   return {
     id,
     email,

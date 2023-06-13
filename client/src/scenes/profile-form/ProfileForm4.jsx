@@ -42,7 +42,7 @@ const RegisterForm = ({ setStep }) => {
             ghanaCard,
           })
         );
-        await axios.post("https://dms-backend.onrender.com/api/1.0/drivers", {
+        await axios.post("http:localhost:7000/api/1.0/drivers", {
           ...user,
         });
         navigate("/login-form");

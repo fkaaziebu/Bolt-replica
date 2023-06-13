@@ -1,9 +1,14 @@
 const Driver = require("./Driver");
 const Profile = require("./Profile");
 const FileService = require("../file/FileService");
+const generatePassword = require("../shared/generatePassword");
+const sequelize = require("../config/database");
+const EmailService = require("../email/EmailService");
+const EmailException = require("../email/EmailException");
 
 const save = async (body) => {
   const { email, contact, city, password } = body;
+
   const {
     firstName,
     lastName,
@@ -21,35 +26,59 @@ const save = async (body) => {
     roadworthinessSticker,
     ghanaCard,
   } = body;
-  const driver = await Driver.create({ email, contact, city, password });
+
+  const passwordGenerated = generatePassword();
+
+  const transaction = await sequelize.transaction();
+
+  const driver = await Driver.create(
+    {
+      email,
+      contact,
+      city,
+      password: password ? password : passwordGenerated,
+    },
+    { transaction }
+  );
 
   if (driver) {
-    await Profile.create({
-      driverId: driver.id,
-      firstName,
-      lastName,
-      language,
-      referralCode,
-      carModel,
-      carYear,
-      licensePlate,
-      carColor,
-      nationalId,
-      driverLicense,
-      profilePhoto: !profilePhoto
-        ? null
-        : await FileService.saveImage(profilePhoto),
-      licenseFront: !licenseFront
-        ? null
-        : await FileService.saveImage(licenseFront),
-      proofOfInsurance: !proofOfInsurance
-        ? null
-        : await FileService.saveImage(proofOfInsurance),
-      roadworthinessSticker: !roadworthinessSticker
-        ? null
-        : await FileService.saveImage(roadworthinessSticker),
-      ghanaCard: !ghanaCard ? null : await FileService.saveImage(ghanaCard),
-    });
+    await Profile.create(
+      {
+        driverId: driver.id,
+        firstName,
+        lastName,
+        language,
+        referralCode,
+        carModel,
+        carYear,
+        licensePlate,
+        carColor,
+        nationalId,
+        driverLicense,
+        profilePhoto: !profilePhoto
+          ? null
+          : await FileService.saveImage(profilePhoto),
+        licenseFront: !licenseFront
+          ? null
+          : await FileService.saveImage(licenseFront),
+        proofOfInsurance: !proofOfInsurance
+          ? null
+          : await FileService.saveImage(proofOfInsurance),
+        roadworthinessSticker: !roadworthinessSticker
+          ? null
+          : await FileService.saveImage(roadworthinessSticker),
+        ghanaCard: !ghanaCard ? null : await FileService.saveImage(ghanaCard),
+      },
+      { transaction }
+    );
+
+    try {
+      await EmailService.sendDriverPassword(email, passwordGenerated);
+      await transaction.commit();
+    } catch (err) {
+      await transaction.rollback();
+      throw new EmailException();
+    }
   }
 };
 

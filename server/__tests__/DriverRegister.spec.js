@@ -7,17 +7,49 @@ const msg = require("../src/messages");
 const path = require("path");
 const fs = require("fs");
 const config = require("config");
+const SMTPServer = require("smtp-server").SMTPServer;
 
 const { uploadDir, profileDir } = config;
 const profileDirectory = path.join(".", uploadDir, profileDir);
 
-beforeAll(() => {
-  return sequelize.sync();
+let lastMail, server;
+let simulateSmtpFailure = false;
+
+beforeAll(async () => {
+  server = new SMTPServer({
+    authOptional: true,
+    onData(stream, session, callback) {
+      let mailBody;
+      stream.on("data", (data) => {
+        mailBody += data.toString();
+      });
+      stream.on("end", () => {
+        if (simulateSmtpFailure) {
+          const err = new Error("Invalid mailbox");
+          err.responseCode = 553;
+          return callback(err);
+        }
+        lastMail = mailBody;
+        callback();
+      });
+    },
+  });
+  await server.listen(8587, "localhost");
+
+  await sequelize.sync();
+  jest.setTimeout(20000);
 });
 
-beforeEach(() => {
-  return Driver.destroy({ truncate: true });
+beforeEach(async () => {
+  simulateSmtpFailure = false;
+  await Driver.destroy({ truncate: { cascade: true } });
 });
+
+afterAll(async () => {
+  await server.close();
+  jest.setTimeout(5000);
+});
+
 const validDriver = {
   email: "user1@mail.com",
   contact: "0550815604",
@@ -255,6 +287,20 @@ describe("Image uploads", () => {
       expect(response.body.validationErrors.profilePhoto).toBe(message);
     }
   );
+});
+
+/* PASSWORDS GENERATION */
+describe("Generate Passwords", () => {
+  it("generates password when user, registers", async () => {
+    await postDriver();
+    const driver = await Driver.findAll();
+    expect(driver[0].password).not.toBe(null);
+  });
+
+  it("sends an email containing password created when driver created", async () => {
+    await postDriver();
+    expect(lastMail).toContain("user1@mail.com");
+  });
 });
 
 /* ERROR MODEL */

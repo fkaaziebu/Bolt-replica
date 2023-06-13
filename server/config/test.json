@@ -7,6 +7,16 @@
     "storage": ":memory:",
     "logging": false
   },
+  "mail": {
+    "host": "localhost",
+    "port": 8587,
+    "tls": {
+      "rejectUnauthorized": false
+    }
+  },
+  "mailConfig": {
+    "from": "My App <info@my-app.com>"
+  },
   "uploadDir": "uploads-test",
   "profileDir": "profile"
 }
