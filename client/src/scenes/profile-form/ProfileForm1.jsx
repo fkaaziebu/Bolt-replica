@@ -22,7 +22,6 @@ const RegisterForm = ({ setStep }) => {
     firstName: Yup.string().required("First Name required"),
     lastName: Yup.string().required("Last Name required"),
     language: Yup.string().required("Language required"),
-    referralCode: Yup.string().required("Referral is required"),
     carModel: Yup.string().required("Vehicle model required"),
     carYear: Yup.string().required("Vehicle year required"),
     licensePlate: Yup.string().required("License plate number required"),
@@ -33,6 +32,25 @@ const RegisterForm = ({ setStep }) => {
     dispatch(updateUserField({ ...values }));
     setStep(2);
   };
+  const carYears = ["2023", "2022", "2021"];
+
+  const languages = ["English", "Spanish", "French"];
+  const colors = [
+    "Red",
+    "Yellow",
+    "Orange",
+    "Green",
+    "Blue",
+    "Violet",
+    "Pink",
+    "White",
+    "Black",
+  ];
+
+  const carModels = [
+    { manufacturer: "Toyota", models: ["Corolla", "Camry", "RAV4"] },
+    { manufacturer: "Honda", models: ["Civic", "Accord", "CR-V"] },
+  ];
 
   return (
     <Formik
@@ -43,7 +61,7 @@ const RegisterForm = ({ setStep }) => {
       <Form>
         <div className="mb-4 mt-4">
           <label htmlFor="firstName" className="form-label fw-bold">
-            firstName
+            First Name
           </label>
           <Field
             name="firstName"
@@ -60,7 +78,7 @@ const RegisterForm = ({ setStep }) => {
 
         <div className="mb-4 mt-4">
           <label htmlFor="lastName" className="form-label fw-bold">
-            lastName
+            Last Name
           </label>
           <Field
             name="lastName"
@@ -74,7 +92,6 @@ const RegisterForm = ({ setStep }) => {
             name="lastName"
           />
         </div>
-
         <div className="mb-4 mt-4">
           <label htmlFor="language" className="form-label fw-bold">
             Language
@@ -82,16 +99,22 @@ const RegisterForm = ({ setStep }) => {
           <Field
             name="language"
             id="language"
-            type="text"
-            className="form-control fs-5 p-3 bg-light-50 border border-0"
-          />
+            as="select"
+            className="form-select fs-5 p-3 bg-light-50 border border-0"
+          >
+            <option value="">Select Language</option>
+            {languages.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </Field>
           <ErrorMessage
             component="div"
             className="text-danger"
-            name="Language"
+            name="language"
           />
         </div>
-
         <div className="mb-4 mt-4">
           <label htmlFor="referralCode" className="form-label fw-bold">
             Referral code
@@ -102,12 +125,30 @@ const RegisterForm = ({ setStep }) => {
             type="text"
             className="form-control fs-5 p-3 bg-light-50 border border-0"
           />
+          <p>If someone referred you, enter their code</p>
+        </div>
+        <div className="mb-4 mt-4">
+          <label htmlFor="carYear" className="form-label fw-bold">
+            Vehicle year
+          </label>
+          <Field
+            name="carYear"
+            id="carYear"
+            as="select"
+            className="form-select fs-5 p-3 bg-light-50 border border-0"
+          >
+            <option value="">Select Year</option>
+            {carYears.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </Field>
           <ErrorMessage
             component="div"
             className="text-danger"
-            name="referralCode"
+            name="carYear"
           />
-          <p>If someone referred you, enter their code</p>
         </div>
 
         <div className="mb-4 mt-4">
@@ -117,29 +158,26 @@ const RegisterForm = ({ setStep }) => {
           <Field
             name="carModel"
             id="carModel"
-            type="text"
-            className="form-control fs-5 p-3 bg-light-50 border border-0"
-          />
-          <ErrorMessage component="div" className="text-danger" name="carModel" />
-        </div>
-
-        <div className="mb-4 mt-4">
-          <label htmlFor="carYear" className="form-label fw-bold">
-            Vehicle year
-          </label>
-          <Field
-            name="carYear"
-            id="carYear"
-            type="text"
-            className="form-control fs-5 p-3 bg-light-50 border border-0"
-          />
+            as="select"
+            className="form-select fs-5 p-3 bg-light-50 border border-0"
+          >
+            <option value="">Select Manufacturer and Model</option>
+            {carModels.map((car) => (
+              <optgroup key={car.manufacturer} label={car.manufacturer}>
+                {car.models.map((model) => (
+                  <option key={model} value={`${car.manufacturer} - ${model}`}>
+                    {model}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </Field>
           <ErrorMessage
             component="div"
             className="text-danger"
-            name="carYear"
+            name="carModel"
           />
         </div>
-
         <div className="mb-4 mt-4">
           <label htmlFor="licensePlate" className="form-label fw-bold">
             License plate
@@ -156,7 +194,6 @@ const RegisterForm = ({ setStep }) => {
             name="licensePlate"
           />
         </div>
-
         <div className="mb-4 mt-4">
           <label htmlFor="carColor" className="form-label fw-bold">
             Vehicle color
@@ -164,10 +201,21 @@ const RegisterForm = ({ setStep }) => {
           <Field
             name="carColor"
             id="carColor"
-            type="text"
-            className="form-control fs-5 p-3 bg-light-50 border border-0"
+            as="select"
+            className="form-select fs-5 p-3 bg-light-50 border border-0"
+          >
+            <option value="">Select Color</option>
+            {colors.map((color) => (
+              <option key={color} value={color}>
+                {color}
+              </option>
+            ))}
+          </Field>
+          <ErrorMessage
+            component="div"
+            className="text-danger"
+            name="carColor"
           />
-          <ErrorMessage component="div" className="text-danger" name="carColor" />
         </div>
 
         <div className="d-flex justify-content-center mt-3">
