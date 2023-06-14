@@ -44,6 +44,11 @@ const RegisterForm = ({ setStep }) => {
         );
         await axios.post("http://localhost:7000/api/1.0/drivers", {
           ...user,
+          profilePhoto,
+          licenseFront,
+          proofOfInsurance,
+          roadworthinessSticker,
+          ghanaCard,
         });
         navigate("/login-form");
       }}
@@ -155,7 +160,7 @@ const RegisterForm = ({ setStep }) => {
           className="form-control fs-5 bg-light-50 border border-0"
         />
       </div>
-      
+
       <div className="divider"></div>
 
       <div className="d-flex justify-content-around mt-3">

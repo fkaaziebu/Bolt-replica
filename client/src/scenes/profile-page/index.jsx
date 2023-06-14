@@ -1,12 +1,16 @@
 import React from "react";
-import MiniDrawer from "./DriverProfile";
+import SideBar from "../global/SideBar"
+import Header from "../global/Header";
 
-function Home() {
+function ProfilePage() {
   return (
     <div className="container-fluid p-0">
-      <MiniDrawer />
+      <Header />
+      <div>
+        <SideBar />
+      </div>
     </div>
   );
 }
 
-export default Home;
+export default ProfilePage;

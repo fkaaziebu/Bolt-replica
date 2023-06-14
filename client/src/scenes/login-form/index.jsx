@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "./Login";
-import Header from "./Header";
+import Header from "../global/Header";
 
 function LoginForm() {
   return (
