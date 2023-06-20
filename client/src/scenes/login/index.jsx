@@ -90,11 +90,11 @@ function Login() {
         "https://dms-backend.onrender.com/api/1.0/drivers",
         {
           ...values,
-          profilePhoto,
-          licenseFront,
-          proofOfInsurance,
-          roadworthinessSticker,
-          ghanaCard,
+          // profilePhoto,
+          // licenseFront,
+          // proofOfInsurance,
+          // roadworthinessSticker,
+          // ghanaCard,
         }
       );
       dispatch(setToken(response.data.token));
