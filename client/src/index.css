@@ -1,53 +1,17 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
-.vw-50 {
-  width: 50vw;
-}
-
-.vh-50 {
-  height: 75vh;
-}
-
-.my-10 {
-  margin: 100px 0 100px 0;
-}
-
-.bg-light-50 {
-  background-color: #F5F5F5;
-}
-
-.divider {
-  height: 1px;
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.15);
+  font-family: "Source Sans Pro", sans-serif;
 }
 
-@media screen and (min-width: 992px) {
-  .w-sm-75 {
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .w-form-100 {
-    width: 100%;
-  } 
-}
-
-
-
-.bg-img {
-  background-image: url("/src/assets/landing.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -99999;
-  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.65);
-}
-
-body {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+.error-component {
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
 }

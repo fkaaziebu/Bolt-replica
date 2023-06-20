@@ -1,19 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { Provider } from "react-redux";
+
+// Redux state configuration
+import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
-import registrationReducer from "./state";
+import { Provider } from "react-redux";
 
 const store = configureStore({
   reducer: {
-    registration: registrationReducer,
+    auth: authReducer,
   },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
