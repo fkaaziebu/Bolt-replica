@@ -1,10 +1,10 @@
 module.exports = {
   database: {
     database: "dms",
-    username: "postgres",
-    password: "1234",
-    host: "localhost",
-    dialect: "postgres",
+    username: "dms-swe",
+    password: "dms-pass",
+    dialect: "sqlite",
+    storage: "./database.sqlite",
     logging: false,
   },
   mail: {

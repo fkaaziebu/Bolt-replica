@@ -7,11 +7,7 @@
     "start": "cross-env NODE_ENV=development nodemon index",
     "test": "cross-env NODE_ENV=test jest --watch",
     "posttest": "cross-env NODE_ENV=test node test-cleanup",
-    "test:staging": "cross-env NODE_ENV=staging jest -f . --runInBand --forceExit",
-    "migrate:test": "cross-env NODE_ENV=staging sequelize-cli db:migrate",
-    "migrate:start": "cross-env NODE_ENV=development sequelize-cli db:migrate",
-    "pretest:staging": "npm run migrate:test",
-    "prestart": "npm run migrate:start"
+    "test:staging": "cross-env NODE_ENV=staging jest -f . --runInBand --forceExit"
   },
   "keywords": [],
   "author": "",
