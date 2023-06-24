@@ -1,17 +1,12 @@
-require("dotenv").config();
-
 module.exports = {
   database: {
-    dbname: "postgre-db",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    dialect: "postgres",
-    password: "Microsoft@2021",
+    database: "dms",
+    username: "dms-swe",
+    password: "dms-pass",
+    dialect: "sqlite",
     storage: "./database.sqlite",
     logging: false,
   },
-
   mail: {
     service: "gmail",
     auth: {

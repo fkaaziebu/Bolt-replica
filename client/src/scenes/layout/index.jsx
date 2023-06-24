@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 function Layout() {
   const isAuth = Boolean(useSelector((state) => state.auth.token));
+
   return (
     <Box display="flex" width="100%" height="100%">
       {isAuth && <Sidebar />}

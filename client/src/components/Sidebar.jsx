@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
-import logoImage from "../assets/user.png";
+import logoImage from "../assets/user.jpeg";
 
 // Icons
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -30,11 +30,13 @@ import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
   const [active, setActive] = useState("");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const theme = useTheme();
+  const userInfo = useSelector((state) => state.auth.profile);
 
   return (
     <Box
@@ -106,10 +108,10 @@ function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Fred Kwame
+                  {userInfo.firstName} {userInfo.lastName}
                 </Typography>
                 <Typography variant="h5" color={theme.palette.secondary[500]}>
-                  KNUST - Kumasi
+                  {userInfo.city}
                 </Typography>
               </Box>
             </Box>

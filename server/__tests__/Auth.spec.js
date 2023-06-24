@@ -12,7 +12,9 @@ const DriverService = require("../src/driver/DriverService");
 const msg = require("../src/messages");
 
 beforeAll(async () => {
-  await sequelize.sync();
+  if (process.env.NODE_ENV === "test") {
+    await sequelize.sync();
+  }
 });
 
 beforeEach(async () => {
@@ -50,15 +52,36 @@ const addDriver = async (driver = { ...activeDriver }) => {
   const hash = await bcrypt.hash(driver.password, 10);
   driver.password = hash;
   const image = await FileService.saveImage(readFileAsBase64());
-  driver.profilePhoto = image;
-  driver.licenseFront = image;
-  driver.proofOfInsurance = image;
-  driver.roadworthinessSticker = image;
-  driver.ghanaCard = image;
 
-  await DriverService.save(driver);
+  await Driver.create({
+    email: driver.email,
+    contact: driver.contact,
+    city: driver.city,
+    password: hash,
+  });
+  // await DriverService.save(driver);
 
   const driverInfo = await Driver.findOne({ where: { email: driver.email } });
+
+  await Profile.create({
+    driverId: driverInfo.id,
+    firstName: driver.firstName,
+    lastName: driver.lastName,
+    language: driver.lastName,
+    referralCode: driver.referralCode,
+    carModel: driver.carModel,
+    carYear: driver.carYear,
+    licensePlate: driver.licensePlate,
+    carColor: driver.carColor,
+    nationalId: driver.nationalId,
+    driverLicense: driver.driverLicense,
+    profilePhoto: image,
+    licenseFront: image,
+    proofOfInsurance: image,
+    roadworthinessSticker: image,
+    ghanaCard: image,
+  });
+
   let driverProfile;
   if (driverInfo) {
     driverProfile = await Profile.findOne({
@@ -67,7 +90,7 @@ const addDriver = async (driver = { ...activeDriver }) => {
   }
 
   const { id, email, contact, city } = driverInfo;
-  
+
   const {
     firstName,
     lastName,
@@ -236,6 +259,4 @@ describe("Logout", () => {
   });
 });
 
-
 /* TOKEN EXPIRATION */
-

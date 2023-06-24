@@ -30,9 +30,12 @@ function Login() {
   const handleLoginSubmit = async (values) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("https://dms-backend.onrender.com/api/1.0/auth", {
-        ...values,
-      });
+      const response = await axios.post(
+        "https://dms-backend.onrender.com/api/1.0/auth",
+        {
+          ...values,
+        }
+      );
 
       const {
         id,
@@ -90,11 +93,11 @@ function Login() {
         "https://dms-backend.onrender.com/api/1.0/drivers",
         {
           ...values,
-          // profilePhoto,
-          // licenseFront,
-          // proofOfInsurance,
-          // roadworthinessSticker,
-          // ghanaCard,
+          profilePhoto: profilePhoto.split(",")[1],
+          licenseFront: licenseFront.split(",")[1],
+          proofOfInsurance: proofOfInsurance.split(",")[1],
+          roadworthinessSticker: roadworthinessSticker.split(",")[1],
+          ghanaCard: ghanaCard.split(",")[1],
         }
       );
       dispatch(setToken(response.data.token));
@@ -627,7 +630,7 @@ function Login() {
                     className="form-control fs-3  border border-1"
                   />
                 </div>
-                
+
                 <Divider sx={{ margin: "40px 0" }} />
                 {/* Button */}
                 <div className="col-12 d-grid mt-3 d-flex justify-content-center">

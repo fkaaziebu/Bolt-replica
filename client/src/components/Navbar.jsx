@@ -19,11 +19,11 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import profileImage from "../assets/user.png";
+import profileImage from "../assets/user.jpeg";
 import { MenuItem } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ isSetting, setIsSetting }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -44,17 +44,51 @@ function Navbar() {
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
-        <Typography variant="h1">
-          <Link
-            style={{
-              textDecoration: "none",
-              color: theme.palette.primary[100],
-            }}
-            to="/"
-          >
-            DMS
-          </Link>
-        </Typography>
+        <FlexBetween gap="1.5rem">
+          <Typography variant="h1">
+            <Link
+              style={{
+                textDecoration: "none",
+                color: theme.palette.primary[100],
+              }}
+              to="/"
+            >
+              DMS
+            </Link>
+          </Typography>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#home"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Company
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#home">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#home">
+                    Services
+                  </a>
+                </li>
+                <li>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#home">
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </FlexBetween>
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
@@ -65,7 +99,7 @@ function Navbar() {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => setIsSetting(!isSetting)}>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
           </IconButton>
           <FlexBetween>
@@ -112,7 +146,12 @@ function Navbar() {
               onClose={() => setAnchorEl(null)}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <Button onClick={() => setAnchorEl(null)}>
+              <Button
+                onClick={() => setAnchorEl(null)}
+                sx={{
+                  color: theme.palette.primary[100],
+                }}
+              >
                 {isAuth ? (
                   <MenuItem onClick={() => dispatch(setToken(""))}>
                     Log Out
