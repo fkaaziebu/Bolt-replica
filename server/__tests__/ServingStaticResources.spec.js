@@ -15,7 +15,7 @@ describe("Profile Images", () => {
     fs.copyFileSync(filePath, targetPath);
     return storedFilename;
   };
-  
+
   it("returns 404 when file not found", async () => {
     const response = await request(app).get("/images/123456");
     expect(response.status).toBe(404);
@@ -23,6 +23,7 @@ describe("Profile Images", () => {
   it("returns 200 ok when file exist", async () => {
     const storedFilename = copyFile();
     const response = await request(app).get("/images/" + storedFilename);
+    console.log(new Buffer.from(response.body).toString("base64"));
     expect(response.status).toBe(200);
   });
   it("returns cache for 1 year in response", async () => {
