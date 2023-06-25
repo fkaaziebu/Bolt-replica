@@ -1,7 +1,5 @@
 import React from "react";
 import Map1 from "../../assets/map-1.jpg";
-import Map2 from "../../assets/map-2.jpg";
-import Map3 from "../../assets/map-3.png";
 
 
 function Operation() {
