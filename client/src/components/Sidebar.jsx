@@ -43,7 +43,7 @@ function Sidebar() {
   useEffect(() => {
     async function fetchProfile() {
       const response = await axios.get(
-        "http://localhost:7000/images/" + userInfo.profilePhoto
+        "https://dms-backend.onrender.com/images/" + userInfo.profilePhoto
       );
       console.log(Buffer.from(response.data, "base64"));
       // setProfileImage(Buffer.from(response.data, "base64"));
