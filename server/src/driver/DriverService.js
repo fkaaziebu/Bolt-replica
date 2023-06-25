@@ -8,8 +8,10 @@ const EmailException = require("../email/EmailException");
 const bcrypt = require("bcrypt");
 
 const save = async (body) => {
+  // Input for driver creation
   const { email, contact, city, password } = body;
 
+  // Input for driver profile creation
   const {
     firstName,
     lastName,
@@ -28,11 +30,15 @@ const save = async (body) => {
     ghanaCard,
   } = body;
 
+  // Auto generate password for user
   const passwordGenerated = generatePassword();
+  // Encrypt the password using bcrypt
   const hash = await bcrypt.hash(password ? password : passwordGenerated, 10);
 
+  // Transaction allows for saving or droping of driver table and profile
   const transaction = await sequelize.transaction();
 
+  // Create driver
   const driver = await Driver.create(
     {
       email,
@@ -43,6 +49,7 @@ const save = async (body) => {
     { transaction }
   );
 
+  // Create Profile for the driver
   if (driver) {
     await Profile.create(
       {
@@ -74,21 +81,28 @@ const save = async (body) => {
       { transaction }
     );
 
+
     try {
+      // Send email of the password to be used for the account
       await EmailService.sendDriverPassword(email, passwordGenerated);
+      // If everything goes well, save the table creations
       await transaction.commit();
     } catch (err) {
+      // If anything goes wrong, rollback the table creations
       await transaction.rollback();
+      // Send an email exception to frontend
       throw new EmailException();
     }
   }
 };
 
 const findByEmail = async (email) => {
+  // Find a driver by a specific email and return
   return await Driver.findOne({ where: { email: email } });
 };
 
 const profileInfo = async (driver) => {
+  // Return profile of a driver
   return await Profile.findOne({
     where: {
       driverId: driver.id,

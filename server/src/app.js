@@ -12,18 +12,23 @@ const { uploadDir, profileDir } = config;
 const profileFolder = path.join(".", uploadDir, profileDir);
 
 const ONE_YEAR_IN_MILLIS = 365 * 24 * 60 * 60 * 1000;
+// Folder creation on app initialization
 FileService.createFolders();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: "3mb" }));
+// Static image route
 app.use(
   "/images",
   express.static(profileFolder, { maxAge: ONE_YEAR_IN_MILLIS })
 );
+// Token route usage
 app.use(tokenAuthentication);
+// Driver route usage
 app.use(DriverRouter);
+// Authentication route usage
 app.use(AuthenticationRouter);
 
 // Middleware for error handling

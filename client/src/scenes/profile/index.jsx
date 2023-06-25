@@ -87,6 +87,24 @@ function Profile() {
         </p>
       </div>
 
+      <div className="col-4 my-2">
+        <div className="d-flex align-items-center justify-content-between">
+          <label htmlFor="contact" className="form-label">
+            Email
+          </label>
+        </div>
+        <input
+          type="text"
+          value={userInfo.email}
+          id="contact"
+          className="form-control fs-3 bg-light-50 border border-0"
+          disabled
+        />
+        <p className="mt-3 ms-2">
+          To edit, please contact customer support info@dms.gh
+        </p>
+      </div>
+
       <Box sx={{ marginBottom: "20px" }}>
         <Typography variant="h2" sx={{ marginBottom: "15px" }}>
           Driver Documents

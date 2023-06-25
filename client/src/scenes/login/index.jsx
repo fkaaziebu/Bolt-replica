@@ -31,7 +31,7 @@ function Login() {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "https://dms-backend.onrender.com/api/1.0/auth",
+        "http://localhost:7000/api/1.0/auth",
         {
           ...values,
         }
@@ -42,6 +42,9 @@ function Login() {
         firstName,
         lastName,
         language,
+        contact,
+        email,
+        city,
         carColor,
         carModel,
         carYear,
@@ -65,6 +68,9 @@ function Login() {
           firstName,
           lastName,
           language,
+          contact,
+          email,
+          city,
           carColor,
           carModel,
           carYear,
@@ -91,7 +97,7 @@ function Login() {
     console.log(profilePhoto)
     try {
       const response = await axios.post(
-        "https://dms-backend.onrender.com/api/1.0/drivers",
+        "http://localhost:7000/api/1.0/drivers",
         {
           ...values,
           profilePhoto: profilePhoto.split(",")[1],

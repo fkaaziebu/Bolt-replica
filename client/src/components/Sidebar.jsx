@@ -43,7 +43,7 @@ function Sidebar() {
   useEffect(() => {
     async function fetchProfile() {
       const response = await axios.get(
-        "https://dms-backend.onrender.com/images/" + userInfo.profilePhoto
+        "http://localhost:7000/images/" + userInfo.profilePhoto
       );
       console.log(Buffer.from(response.data, "base64"));
       // setProfileImage(Buffer.from(response.data, "base64"));
@@ -118,7 +118,7 @@ function Sidebar() {
               <Box textAlign="center">
                 <Typography
                   variant="h2"
-                  color={theme.palette.grey[100]}
+                  color={theme.palette.primary[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >

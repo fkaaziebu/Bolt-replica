@@ -8,6 +8,8 @@ const { logger } = require("../shared/logger");
 
 const router = express.Router();
 
+// Driver creation with profile
+// Field verification using express-validator
 router.post(
   "/api/1.0/drivers",
 
@@ -46,13 +48,23 @@ router.post(
     return true;
   }),
   async (req, res, next) => {
+    // Logging any request coming to this route
     logger("", req);
+
+    // Getting errors due to input validation
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      // If any input validation errors, throw an exception
       return next(new ValidationException(errors.array()));
     }
 
-    await DriverService.save(req.body);
+    try {
+      // Save user to database
+      await DriverService.save(req.body);
+    } catch (err) {
+      next(err);
+    }
+    // Send response for a successful driver creation
     return res.status(200).send({ message: "Driver created" });
   }
 );
