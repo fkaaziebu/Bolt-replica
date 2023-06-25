@@ -1285,3 +1285,5 @@
 [2023-06-25T19:17:30.207] [INFO] default - app is running. version: 1.0.0
 [2023-06-25T19:17:34.545] [INFO] default - app is running. version: 1.0.0
 [2023-06-25T20:02:50.994] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-06-25T20:12:44.498] [INFO] default - app is running. version: 1.0.0
+[2023-06-25T20:12:58.577] [INFO] default - app is running. version: 1.0.0
