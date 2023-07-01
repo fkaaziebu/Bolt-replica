@@ -5,7 +5,7 @@ module.exports = {
     username: "dms-swe",
     password: "dms-pass",
     dialect: "sqlite",
-    storage: ":memory:",
+    storage: "./database.sqlite",
     logging: false,
   },
   mail: {

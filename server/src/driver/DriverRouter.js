@@ -44,7 +44,7 @@ router.post(
     if (!supportedType) {
       throw new Error(msg.unsupported_image_file);
     }
-
+    
     return true;
   }),
   async (req, res, next) => {

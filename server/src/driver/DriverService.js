@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 
 const save = async (body) => {
   // Input for driver creation
-  const { email, contact, city, password } = body;
+  const { email, contact, city } = body;
 
   // Input for driver profile creation
   const {
@@ -33,7 +33,7 @@ const save = async (body) => {
   // Auto generate password for user
   const passwordGenerated = generatePassword();
   // Encrypt the password using bcrypt
-  const hash = await bcrypt.hash(password ? password : passwordGenerated, 10);
+  const hash = await bcrypt.hash(passwordGenerated, 10);
 
   // Transaction allows for saving or droping of driver table and profile
   const transaction = await sequelize.transaction();

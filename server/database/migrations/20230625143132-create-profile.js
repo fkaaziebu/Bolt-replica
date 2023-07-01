@@ -63,6 +63,14 @@ module.exports = {
         },
         onDelete: "cascade",
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
     /**
      * Add altering commands here.
