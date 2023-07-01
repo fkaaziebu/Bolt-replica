@@ -61,11 +61,11 @@ router.post(
     try {
       // Save user to database
       await DriverService.save(req.body);
+      // Send response for a successful driver creation
+      return res.status(200).send({ message: "Driver created" });
     } catch (err) {
       next(err);
     }
-    // Send response for a successful driver creation
-    return res.status(200).send({ message: "Driver created" });
   }
 );
 
