@@ -1595,3 +1595,4 @@
 }
 [2023-07-01T04:52:50.067] [INFO] default - /api/1.0/auth	POST	[object Object]
 [2023-07-01T04:53:39.710] [INFO] default - /api/1.0/auth	POST	[object Object]
+[2023-07-03T19:19:24.773] [INFO] default - app is running. version: 1.0.0
