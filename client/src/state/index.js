@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mode: "dark",
   userId: "",
+  userEmail: "",
   token: "",
   errorMessage: {},
   successMessage: {},
@@ -19,6 +20,9 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setEmail: (state, action) => {
+      state.userEmail = action.payload;
+    },
     setErrorMessage: (state, action) => {
       state.errorMessage = { ...action.payload };
     },
@@ -34,6 +38,7 @@ export const authSlice = createSlice({
 export const {
   setMode,
   setToken,
+  setEmail,
   setErrorMessage,
   setSuccessMessage,
   setProfile,

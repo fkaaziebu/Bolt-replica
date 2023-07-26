@@ -21,6 +21,10 @@ import Document from "./scenes/document/index";
 import Rides from "./scenes/ride/index";
 import Vehicle from "./scenes/vehicle/index";
 import Home from "./scenes/home/index";
+import ResetPassword from "./scenes/reset/ResetPassword";
+import ConfirmReset from "./scenes/reset/ConfirmReset";
+import NewPassword from "./scenes/create-password/NewPassword";
+import EnterPassword from "./scenes/create-password/EnterPassword";
 
 function App() {
   const mode = useSelector((state) => state.auth.mode);
@@ -106,6 +110,13 @@ function App() {
                 path="/vehicles"
                 element={isAuth ? <Vehicle /> : <Navigate to="/login" />}
               />
+              <Route
+                path="/reset"
+                element={!isAuth ? <ResetPassword /> : <Navigate to="/login" />}
+              />
+              <Route path="/confirm" element={<ConfirmReset />} />
+              <Route path="/new-password" element={<NewPassword />} />
+              <Route path="/enter-password" element={<EnterPassword />} />
             </Route>
           </Routes>
         </ThemeProvider>
