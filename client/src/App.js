@@ -25,6 +25,7 @@ import ResetPassword from "./scenes/reset/ResetPassword";
 import ConfirmReset from "./scenes/reset/ConfirmReset";
 import NewPassword from "./scenes/create-password/NewPassword";
 import EnterPassword from "./scenes/create-password/EnterPassword";
+import ProfileCompletion from "./scenes/profile-completion/ProfileCompletion";
 
 function App() {
   const mode = useSelector((state) => state.auth.mode);
@@ -117,6 +118,12 @@ function App() {
               <Route path="/confirm" element={<ConfirmReset />} />
               <Route path="/new-password" element={<NewPassword />} />
               <Route path="/enter-password" element={<EnterPassword />} />
+              <Route
+                path="/profile-completion"
+                element={
+                  !isAuth ? <ProfileCompletion /> : <Navigate to="/login" />
+                }
+              />
             </Route>
           </Routes>
         </ThemeProvider>

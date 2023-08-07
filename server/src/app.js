@@ -30,7 +30,6 @@ app.use(tokenAuthentication);
 app.use(DriverRouter);
 // Authentication route usage
 app.use(AuthenticationRouter);
-
 // Middleware for error handling
 app.use(ErrorHandler);
 

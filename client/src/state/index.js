@@ -8,6 +8,7 @@ const initialState = {
   errorMessage: {},
   successMessage: {},
   profile: {},
+  user: {},
 };
 
 export const authSlice = createSlice({
@@ -32,6 +33,9 @@ export const authSlice = createSlice({
     setProfile: (state, action) => {
       state.profile = { ...action.payload };
     },
+    updateUserField: (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+    },
   },
 });
 
@@ -42,5 +46,6 @@ export const {
   setErrorMessage,
   setSuccessMessage,
   setProfile,
+  updateUserField
 } = authSlice.actions;
 export default authSlice.reducer;
