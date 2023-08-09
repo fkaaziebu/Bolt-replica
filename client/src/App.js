@@ -96,7 +96,7 @@ function App() {
               />
               <Route path="/login" element={<Login />} />
               <Route
-                path="profile"
+                path="/profile"
                 element={isAuth ? <Profile /> : <Navigate to="/login" />}
               />
               <Route
@@ -121,7 +121,7 @@ function App() {
               <Route
                 path="/profile-completion"
                 element={
-                  !isAuth ? <ProfileCompletion /> : <Navigate to="/login" />
+                  isAuth ? <ProfileCompletion /> : <Navigate to="/login" />
                 }
               />
             </Route>

@@ -10,11 +10,10 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
-import { Buffer } from "buffer";
 import profile from "../assets/user.jpeg";
 
 // Icons
@@ -32,7 +31,6 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import { useSelector } from "react-redux";
-import axios from "axios";
 
 function Sidebar() {
   const [active, setActive] = useState("");
@@ -40,17 +38,15 @@ function Sidebar() {
   const theme = useTheme();
   const userInfo = useSelector((state) => state.auth.profile);
 
-  useEffect(() => {
-    async function fetchProfile() {
-      const response = await axios.get(
-        "http://localhost:7000/images/" + userInfo.profilePhoto
-      );
-      console.log(Buffer.from(response.data, "base64"));
-      // setProfileImage(Buffer.from(response.data, "base64"));
-    }
-    fetchProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   async function fetchProfile() {
+  //     const response = await axios.get(
+  //       "http://localhost:7000/images/" + userInfo.profilePhoto
+  //     );
+  //   }
+  //   fetchProfile();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <Box

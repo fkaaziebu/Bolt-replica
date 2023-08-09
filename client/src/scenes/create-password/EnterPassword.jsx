@@ -5,7 +5,12 @@ import vpassLogo from "../../assets/vpass-logo.png";
 import { useTheme } from "@mui/material";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setErrorMessage, setSuccessMessage, setToken } from "../../state";
+import {
+  setErrorMessage,
+  setSuccessMessage,
+  setToken,
+  updateUserField,
+} from "../../state";
 import { useNavigate } from "react-router-dom";
 
 const EnterPassword = () => {
@@ -36,12 +41,18 @@ const EnterPassword = () => {
 
       dispatch(setSuccessMessage({ message: response.data.message }));
       dispatch(setToken(response.data.token));
-      navigate("/profile");
+      dispatch(updateUserField(response.data));
+
+      if (!response.data.isProfileComplete) {
+        navigate("/profile-completion");
+      } else {
+        navigate("/profile");
+      }
     } catch (err) {
       dispatch(setErrorMessage({ message: err.response.data.message }));
 
       if (err.response.status === 403) {
-        navigate("/confirm")
+        navigate("/confirm");
       }
     }
     setIsLoading(false);

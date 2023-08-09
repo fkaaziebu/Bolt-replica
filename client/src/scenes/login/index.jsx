@@ -29,7 +29,6 @@ function Login() {
         }
       );
       dispatch(setEmail(values.email));
-      console.log(response.data);
       const isActivated = response.data.isActivated;
 
       if (isActivated) {
@@ -46,13 +45,11 @@ function Login() {
   const handleRegisterSubmit = async (values) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:7000/api/1.0/drivers",
-        {
-          ...values,
-        }
-      );
+      await axios.post("http://localhost:7000/api/1.0/drivers", {
+        ...values,
+      });
       dispatch(setSuccessMessage({ message: "Driver created successfully" }));
+      setIsLogin(true);
     } catch (err) {
       dispatch(setErrorMessage(err.response.data.validationErrors));
     }

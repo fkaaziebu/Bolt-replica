@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { updateUserField } from "../../state/index";
+import { updateProfile } from "../../state/index";
 import { useDispatch } from "react-redux";
 
 const RegisterForm = ({ setStep }) => {
@@ -18,7 +18,7 @@ const RegisterForm = ({ setStep }) => {
   });
 
   const handleSubmit = (values) => {
-    dispatch(updateUserField({ ...values }));
+    dispatch(updateProfile({ ...values }));
     setStep(3);
   };
 

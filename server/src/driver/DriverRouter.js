@@ -1,18 +1,14 @@
 const express = require("express");
+const msg = require("../messages");
 const DriverService = require("./DriverService");
 const { check, validationResult } = require("express-validator");
 const ValidationException = require("../error/ValidationException");
-const msg = require("../messages");
-const FileService = require("../file/FileService");
-const { logger } = require("../shared/logger");
+const ForbiddenException = require("../error/ForbiddenException");
 
 const router = express.Router();
 
-// Driver creation with profile
-// Field verification using express-validator
 router.post(
   "/api/1.0/drivers",
-
   check("email")
     .notEmpty()
     .withMessage("Email cannot be null")
@@ -26,32 +22,10 @@ router.post(
         throw new Error(msg.email_inuse);
       }
     }),
-  check("contact").notEmpty().withMessage("Contact cannot be null"),
-  check("city").notEmpty().withMessage("City cannot be null"),
-  check([
-    "profilePhoto",
-    "licenseFront",
-    "proofOfInsurance",
-    "roadworthinessSticker",
-    "ghanaCard",
-  ]).custom(async (imageAsBase64String) => {
-    if (!imageAsBase64String) {
-      return true;
-    }
-    const buffer = Buffer.from(imageAsBase64String, "base64");
-
-    const supportedType = await FileService.isSupportedFileType(buffer);
-    if (!supportedType) {
-      throw new Error(msg.unsupported_image_file);
-    }
-    
-    return true;
-  }),
+  check("driverLicense")
+    .notEmpty()
+    .withMessage("Driver License cannot be null"),
   async (req, res, next) => {
-    // Logging any request coming to this route
-    logger("", req);
-
-    // Getting errors due to input validation
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // If any input validation errors, throw an exception
@@ -59,14 +33,40 @@ router.post(
     }
 
     try {
-      // Save user to database
       await DriverService.save(req.body);
-      // Send response for a successful driver creation
-      return res.status(200).send({ message: "Driver created" });
+      return res.send({ message: "Driver created" });
     } catch (err) {
       next(err);
     }
   }
 );
+
+router.post("/api/1.0/drivers/profile/:id", async (req, res, next) => {
+  const authenticatedDriver = req.authenticatedDriver;
+  const { email } = req.body;
+  // eslint-disable-next-line eqeqeq
+  if (!authenticatedDriver || authenticatedDriver.id != req.params.id) {
+    return next(new ForbiddenException("unauthorized_user_update"));
+  }
+
+  const driver = await DriverService.findByEmail(email);
+  if (!driver) {
+    return next(new DriverAuthenticationException());
+  }
+
+  try {
+    req.body.id = req.params.id;
+    const isProfileComplete = await DriverService.saveProfile(req.body);
+    driver.isProfileComplete = isProfileComplete;
+    await driver.save();
+
+    return res.status(200).send({
+      message: "Profile updated successfully",
+      isProfileComplete,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

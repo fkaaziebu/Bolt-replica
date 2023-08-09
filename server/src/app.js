@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const DriverRouter = require("./driver/DriverRouter");
-const AuthenticationRouter = require("./auth/AuthenticationRouter");
-const ErrorHandler = require("../src/error/ErrorHandler");
-const FileService = require("./file/FileService");
 const config = require("config");
 const path = require("path");
+const ErrorHandler = require("../src/error/ErrorHandler");
+const FileService = require("./file/FileService");
+const DriverRouter = require("./driver/DriverRouter");
+const DriverAuthenticationRouter = require("./auth/DriverAuthenticationRouter");
 const tokenAuthentication = require("./middleware/tokenAuthentication");
 
 const { uploadDir, profileDir } = config;
@@ -26,11 +26,11 @@ app.use(
 );
 // Token route usage
 app.use(tokenAuthentication);
-// Driver route usage
+// All routes for driver operations
 app.use(DriverRouter);
-// Authentication route usage
-app.use(AuthenticationRouter);
-// Middleware for error handling
+// Authentication router
+app.use(DriverAuthenticationRouter);
+// Middleware for handling errors passed using the next function
 app.use(ErrorHandler);
 
 module.exports = app;

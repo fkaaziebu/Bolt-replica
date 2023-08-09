@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 
 function Layout() {
   const isAuth = Boolean(useSelector((state) => state.auth.token));
-
+  const isProfileCompletion = Boolean(useSelector((state) => state.auth.user.isProfileComplete))
+  console.log("IsProfile:", isProfileCompletion)
   return (
     <Box display="flex" width="100%" height="100%">
-      {isAuth && <Sidebar />}
+      {isAuth && isProfileCompletion && <Sidebar />}
       <Box flexGrow={1}>
         <Navbar />
         <Outlet />

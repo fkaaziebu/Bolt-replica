@@ -2,17 +2,17 @@ const nodemailer = require("nodemailer");
 const transporter = require("../config/emailTransporter");
 const config = require("config");
 
-const sendDriverPassword = async (email, password) => {
+const sendDriverActivationToken = async (email, password) => {
   const info = await transporter.sendMail({
     ...config.get("mailConfig"),
     to: email,
-    subject: "DMS Password",
+    subject: "DMS Activation Token",
     html: `
     <div>
-      <h1>Your DMS password</h1>
+      <h1>Your DMS activation token</h1>
     </div>
     <div>
-      Password is ${password}
+      Token is ${password}
     </div>
     `,
   });
@@ -21,4 +21,4 @@ const sendDriverPassword = async (email, password) => {
   }
 };
 
-module.exports = { sendDriverPassword };
+module.exports = { sendDriverActivationToken };

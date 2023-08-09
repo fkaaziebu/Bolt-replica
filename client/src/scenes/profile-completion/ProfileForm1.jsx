@@ -1,13 +1,11 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { updateUserField } from "../../state/index";
+import { updateProfile } from "../../state/index";
 import { useDispatch } from "react-redux";
-import { useTheme } from "@mui/material";
 
 const RegisterForm = ({ setStep }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
 
   const profileOneValues = {
     firstName: "",
@@ -31,7 +29,7 @@ const RegisterForm = ({ setStep }) => {
   });
 
   const handleSubmit = (values) => {
-    dispatch(updateUserField({ ...values }));
+    dispatch(updateProfile({ ...values }));
     setStep(2);
   };
 

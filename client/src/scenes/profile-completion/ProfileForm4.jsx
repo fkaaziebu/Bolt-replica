@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateUserField } from "../../state/index";
+import { updateProfile, updateUserField } from "../../state/index";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -28,13 +28,17 @@ const RegisterForm = ({ setStep }) => {
   const [roadworthinessSticker, setRoadworthinessSticker] = useState("");
   const [ghanaCard, setGhanaCard] = useState("");
 
-  const user = useSelector((state) => state.auth.user);
+  const profile = useSelector((state) => state.auth.profile);
+  const id = useSelector((state) => state.auth.user.id);
+  const email = useSelector((state) => state.auth.user.email);
+  const token = useSelector((state) => state.auth.user.token);
+
   return (
     <form
       onSubmit={async (e) => {
         e.preventDefault();
         dispatch(
-          updateUserField({
+          updateProfile({
             profilePhoto,
             licenseFront,
             proofOfInsurance,
@@ -42,10 +46,34 @@ const RegisterForm = ({ setStep }) => {
             ghanaCard,
           })
         );
-        await axios.post("http://localhost:7000/api/1.0/drivers", {
-          ...user,
-        });
-        navigate("/login-form");
+
+        const response = await axios.post(
+          "http://localhost:7000/api/1.0/drivers/profile/" + id,
+          {
+            ...profile,
+            profilePhoto,
+            licenseFront,
+            proofOfInsurance,
+            roadworthinessSticker,
+            ghanaCard,
+            email,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log(response.data)
+
+        const isProfileComplete = response.data.isProfileComplete;
+
+        dispatch(updateUserField({ isProfileComplete }));
+        if (isProfileComplete) {
+          navigate("/profile");
+        }
+        navigate("/login");
       }}
     >
       <div className="mb-5 mt-4">
@@ -155,7 +183,7 @@ const RegisterForm = ({ setStep }) => {
           className="form-control fs-5 bg-light-50 border border-0"
         />
       </div>
-      
+
       <div className="divider"></div>
 
       <div className="d-flex justify-content-around mt-3">

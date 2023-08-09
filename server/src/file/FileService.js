@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("config");
-const FileType = require("file-type");
+// const FileType = require("file-type");
 const { randomString } = require("../shared/generator");
 
 const { uploadDir, profileDir } = config;

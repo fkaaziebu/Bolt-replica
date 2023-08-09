@@ -12,17 +12,18 @@ the database config:
 3. Password for database connection
 4. Object for providing optional arguments
 */
-const sequelize = new Sequelize(
-  dbConfig.dbname,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    port: dbConfig.port,
-    dialect: dbConfig.dialect,
-    storage: dbConfig.storage,
-    logging: dbConfig.logging,
-  }
-);
 
-module.exports = sequelize;
+const sequelize = new Sequelize(
+    dbConfig.dbname,
+    dbConfig.username,
+    dbConfig.password,
+    {
+      host: dbConfig.host,
+      port: dbConfig.port,
+      dialect: dbConfig.dialect,
+      storage: dbConfig.storage,
+      logging: dbConfig.logging,
+    }
+  );
+  
+  module.exports = sequelize;
