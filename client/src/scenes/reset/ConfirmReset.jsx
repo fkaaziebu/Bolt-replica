@@ -31,7 +31,7 @@ const ConfirmReset = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/1.0/auth/passwordReset",
+        "https://dms-backend.onrender.com/api/1.0/auth/passwordReset",
         {
           passwordResetToken: values.token,
           password: values.password,

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const NewPassword = () => {
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const email = useSelector((state) => state.auth.userEmail)
   const dispatch = useDispatch()
@@ -29,6 +29,7 @@ const NewPassword = () => {
   });
 
   const resetSubmit = async (values) => {
+    setIsLoading(true);
     try {
         const response = await axios.post("https://dms-backend.onrender.com/api/1.0/auth/activate", {
             activationToken: values.token,
@@ -41,6 +42,7 @@ const NewPassword = () => {
     } catch(err) {
         dispatch(setErrorMessage({message: "Account activation unsuccessfull"}))
     }
+    setIsLoading(false);
   };
 
   return (

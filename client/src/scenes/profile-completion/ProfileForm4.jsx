@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { updateProfile, updateUserField } from "../../state/index";
+import {
+  setErrorMessage,
+  updateProfile,
+  updateUserField,
+} from "../../state/index";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +31,7 @@ const RegisterForm = ({ setStep }) => {
   const [proofOfInsurance, setProofOfInsurance] = useState("");
   const [roadworthinessSticker, setRoadworthinessSticker] = useState("");
   const [ghanaCard, setGhanaCard] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const profile = useSelector((state) => state.auth.profile);
   const id = useSelector((state) => state.auth.user.id);
@@ -37,44 +42,54 @@ const RegisterForm = ({ setStep }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        dispatch(
-          updateProfile({
-            profilePhoto,
-            licenseFront,
-            proofOfInsurance,
-            roadworthinessSticker,
-            ghanaCard,
-          })
-        );
+        setIsLoading(true);
+        try {
+          dispatch(
+            updateProfile({
+              profilePhoto,
+              licenseFront,
+              proofOfInsurance,
+              roadworthinessSticker,
+              ghanaCard,
+            })
+          );
 
-        const response = await axios.post(
-          "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
-          {
-            ...profile,
-            profilePhoto,
-            licenseFront,
-            proofOfInsurance,
-            roadworthinessSticker,
-            ghanaCard,
-            email,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+          const response = await axios.post(
+            "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
+            {
+              ...profile,
+              profilePhoto,
+              licenseFront,
+              proofOfInsurance,
+              roadworthinessSticker,
+              ghanaCard,
+              email,
             },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const isProfileComplete = response.data.isProfileComplete;
+
+          dispatch(updateUserField({ isProfileComplete }));
+          if (isProfileComplete) {
+            navigate("/profile");
+          } else {
+            navigate("/login");
+            dispatch(updateUserField({}));
           }
-        );
-
-        console.log(response.data);
-
-        const isProfileComplete = response.data.isProfileComplete;
-
-        dispatch(updateUserField({ isProfileComplete }));
-        if (isProfileComplete) {
-          navigate("/profile");
-        } else {
+        } catch (err) {
+          dispatch(
+            setErrorMessage({
+              message: "Error occured while updating profile info",
+            })
+          );
           navigate("/login");
         }
+        setIsLoading(false);
       }}
     >
       <div className="mb-5 mt-4">
@@ -201,7 +216,13 @@ const RegisterForm = ({ setStep }) => {
           type="submit"
           className="btn btn-primary fs-4 mt-5 py-2 px-4 rounded-pill"
         >
-          Next
+          {isLoading ? (
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Next"
+          )}
         </button>
       </div>
     </form>
