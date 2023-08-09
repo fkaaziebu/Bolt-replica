@@ -4,6 +4,7 @@ const DriverService = require("./DriverService");
 const { check, validationResult } = require("express-validator");
 const ValidationException = require("../error/ValidationException");
 const ForbiddenException = require("../error/ForbiddenException");
+const Profile = require("./Profile");
 
 const router = express.Router();
 
@@ -67,6 +68,21 @@ router.post("/api/1.0/drivers/profile/:id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.get("/api/1.0/drivers/profile/:id", async (req, res, next) => {
+  const authenticatedDriver = req.authenticatedDriver;
+
+  // eslint-disable-next-line eqeqeq
+  if (!authenticatedDriver || authenticatedDriver.id != req.params.id) {
+    return next(new ForbiddenException("unauthorized_user_update"));
+  }
+
+  const driverProfile = await Profile.findOne({ where: { driverId: req.params.id } });
+
+  res.status(200).send({
+    driverProfile,
+  });
 });
 
 module.exports = router;

@@ -32,7 +32,7 @@ const EnterPassword = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/1.0/auth/login",
+        "https://dms-backend.onrender.com/api/1.0/auth/login",
         {
           email: email,
           password: values.password,

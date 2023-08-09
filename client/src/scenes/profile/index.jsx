@@ -1,9 +1,35 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../../state";
 
 function Profile() {
-  const userInfo = useSelector((state) => state.auth.profile);
+  const id = useSelector((state) => state.auth.user.id);
+  const email = useSelector((state) => state.auth.userEmail);
+  const token = useSelector((state) => state.auth.user.token);
+  const [profile, setProfile] = useState({});
+  const dispatch = useDispatch();
+
+  async function getUserProfile() {
+    try {
+      const response = await axios.get(
+        "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setProfile({ ...response.data.driverProfile });
+      dispatch(updateProfile({ ...response.data.driverProfile }));
+      console.log(profile);
+    } catch (err) {}
+  }
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
   return (
     <div className="row d-flex p-4 m-3">
       <Box sx={{ marginBottom: "20px" }}>
@@ -23,7 +49,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.firstName}
+          value={profile.firstName}
           id="firstName"
           className="form-control fs-3 border border-0"
           disabled
@@ -41,7 +67,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.lastName}
+          value={profile.lastName}
           id="lastName"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -59,7 +85,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.contact}
+          value={profile.contact}
           id="contact"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -77,7 +103,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.firstName + " " + userInfo.lastName}
+          value={profile.firstName + " " + profile.lastName}
           id="name"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -95,7 +121,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.email}
+          value={email}
           id="contact"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -121,7 +147,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.driverLicense}
+          value={profile.driverLicense}
           id="reference"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -165,7 +191,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.carModel}
+          value={profile.carModel}
           id="model"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -183,7 +209,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={userInfo.carYear}
+          value={profile.carYear}
           id="year"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -201,7 +227,7 @@ function Profile() {
         </div>
         <input
           type="plate"
-          value={userInfo.licensePlate}
+          value={profile.licensePlate}
           id="plate"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled

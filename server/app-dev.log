@@ -110,3 +110,72 @@
 [2023-08-09T14:35:38.850] [INFO] default - /api/1.0/auth/login	POST	[object Object]
 [2023-08-09T14:39:51.373] [INFO] default - /api/1.0/auth/email	POST	[object Object]
 [2023-08-09T14:39:55.858] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T14:52:31.860] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T14:52:40.437] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T14:53:46.867] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T14:57:20.028] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T14:58:29.190] [INFO] default - /api/1.0/auth/activate	POST	[object Object]
+[2023-08-09T14:58:34.155] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T14:58:49.680] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T14:59:10.724] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T14:59:17.251] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:02:58.116] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:03:03.325] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:03:26.138] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:04:03.765] [INFO] default - /api/1.0/auth/activate	POST	[object Object]
+[2023-08-09T15:04:10.909] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:04:18.353] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:06:21.682] [INFO] default - /api/1.0/auth/sendEmailForPasswordReset	POST	[object Object]
+[2023-08-09T15:07:08.026] [INFO] default - /api/1.0/auth/passwordReset	POST	[object Object]
+[2023-08-09T15:07:18.027] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:07:25.783] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:07:29.251] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:21.079] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:08:23.676] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:25.367] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:26.715] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:28.023] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:29.787] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:08:32.523] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:09:23.389] [INFO] default - /api/1.0/auth/passwordReset	POST	[object Object]
+[2023-08-09T15:09:27.215] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:09:34.492] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:15:25.470] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:29.597] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:33.004] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:35.481] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:38.233] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:40.468] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:43.701] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:44.745] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:47.693] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:15:50.624] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:16:08.987] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:16:10.103] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:16:37.852] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:16:57.092] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:02.628] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:29.384] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:36.080] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:40.205] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:43.673] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:49.093] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:51.499] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:53.805] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:55.888] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:17:56.973] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:18:06.857] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:33:40.240] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:33:47.287] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:41:50.964] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:41:57.458] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:42:08.783] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:43:55.522] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:43:56.586] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:44:24.374] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:44:33.788] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:45:26.956] [INFO] default - app is running. version: 1.0.0
+[2023-08-09T15:45:44.903] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:45:54.217] [INFO] default - /api/1.0/auth/login	POST	[object Object]
+[2023-08-09T15:48:46.466] [INFO] default - /api/1.0/auth/email	POST	[object Object]
+[2023-08-09T15:48:53.799] [INFO] default - /api/1.0/auth/login	POST	[object Object]

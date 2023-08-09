@@ -48,7 +48,7 @@ const RegisterForm = ({ setStep }) => {
         );
 
         const response = await axios.post(
-          "http://localhost:7000/api/1.0/drivers/profile/" + id,
+          "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
           {
             ...profile,
             profilePhoto,
@@ -65,15 +65,16 @@ const RegisterForm = ({ setStep }) => {
           }
         );
 
-        console.log(response.data)
+        console.log(response.data);
 
         const isProfileComplete = response.data.isProfileComplete;
 
         dispatch(updateUserField({ isProfileComplete }));
         if (isProfileComplete) {
           navigate("/profile");
+        } else {
+          navigate("/login");
         }
-        navigate("/login");
       }}
     >
       <div className="mb-5 mt-4">
