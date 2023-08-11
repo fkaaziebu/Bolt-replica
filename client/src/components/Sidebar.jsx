@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
-import profile from "../assets/user.jpeg";
 
 // Icons
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -37,16 +36,7 @@ function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const theme = useTheme();
   const userInfo = useSelector((state) => state.auth.profile);
-
-  // useEffect(() => {
-  //   async function fetchProfile() {
-  //     const response = await axios.get(
-  //       "http://localhost:7000/images/" + userInfo.profilePhoto
-  //     );
-  //   }
-  //   fetchProfile();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const profileImage = useSelector((state) => state.auth.profile.profilePhoto);
 
   return (
     <Box
@@ -107,7 +97,7 @@ function Sidebar() {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={profile}
+                  src={profileImage}
                   style={{ cursoer: "pointer", borderRadius: "50%" }}
                 />
               </Box>

@@ -9,22 +9,24 @@ function Profile() {
   const email = useSelector((state) => state.auth.userEmail);
   const token = useSelector((state) => state.auth.user.token);
   const [profile, setProfile] = useState({});
+  const profileInfo = useSelector((state) => state.auth.profile);
   const dispatch = useDispatch();
 
   async function getUserProfile() {
-    try {
-      const response = await axios.get(
-        "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setProfile({ ...response.data.driverProfile });
-      dispatch(updateProfile({ ...response.data.driverProfile }));
-      console.log(profile);
-    } catch (err) {}
+    if (!profileInfo) {
+      try {
+        const response = await axios.get(
+          "https://dms-backend.onrender.com/api/1.0/drivers/profile/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setProfile({ ...response.data.driverProfile });
+        dispatch(updateProfile({ ...response.data.driverProfile }));
+      } catch (err) {}
+    }
   }
   useEffect(() => {
     getUserProfile();
@@ -49,7 +51,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.firstName}
+          value={profileInfo.firstName || profile.firstName}
           id="firstName"
           className="form-control fs-3 border border-0"
           disabled
@@ -67,7 +69,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.lastName}
+          value={profileInfo.lastName || profile.lastName}
           id="lastName"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -85,7 +87,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.contact}
+          value={profileInfo.contact || profile.contact}
           id="contact"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -103,7 +105,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.firstName + " " + profile.lastName}
+          value={profileInfo.firstName || profile.firstName + " " + profileInfo.lastName || profile.lastName}
           id="name"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -147,7 +149,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.driverLicense}
+          value={profileInfo.driverLicense || profile.driverLicense}
           id="reference"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -191,7 +193,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.carModel}
+          value={profileInfo.carModel || profile.carModel}
           id="model"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -209,7 +211,7 @@ function Profile() {
         </div>
         <input
           type="text"
-          value={profile.carYear}
+          value={profileInfo.carYear || profile.carYear}
           id="year"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled
@@ -227,7 +229,7 @@ function Profile() {
         </div>
         <input
           type="plate"
-          value={profile.licensePlate}
+          value={profileInfo.licensePlate || profile.licensePlate}
           id="plate"
           className="form-control fs-3 bg-light-50 border border-0"
           disabled

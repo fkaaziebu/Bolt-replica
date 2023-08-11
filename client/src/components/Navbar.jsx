@@ -19,7 +19,6 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import profileImage from "../assets/user.jpeg";
 import { MenuItem } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -31,7 +30,7 @@ function Navbar({ isSetting, setIsSetting }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isAuth = Boolean(useSelector((state) => state.auth.token));
-  // const profileImage = useSelector((state) => state.auth.profile.profilePhoto);
+  const profileImage = useSelector((state) => state.auth.profile.profilePhoto);
   // console.log("Profile: ", profileImage);
 
   return (
